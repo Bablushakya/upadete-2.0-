@@ -559,8 +559,8 @@
             </div>
         </div>
         
-        <!-- Spacer to push the itinerary below the 400vh storytelling track -->
-        <div style="height: 400vh;"></div>
+        <!-- Spacer: 4 steps × 45vh each = 180vh, plus 20vh buffer = 200vh total -->
+        <div style="height: 200vh;"></div>
     </div>
     
     <!-- Sample Itinerary (scrolls up naturally after storytelling container finishes) -->
@@ -1367,8 +1367,9 @@
             const scrollTop = workshopSection.scrollTop;
             const clientHeight = workshopSection.clientHeight;
             
-            // Each experience step occupies a height of clientHeight (100vh) of scroll space.
-            const stepHeight = clientHeight;
+            // Each step occupies 45% of viewport height — tune this multiplier to control sensitivity.
+            // Lower = faster step changes; 1.0 = one full scroll per step (original behaviour).
+            const stepHeight = clientHeight * 0.45;
             let activeStepIndex = Math.floor(scrollTop / stepHeight);
             activeStepIndex = Math.max(0, Math.min(3, activeStepIndex)); // Clamp 0-3
             
@@ -1423,4 +1424,6 @@
         updateSlider(0);
     });
 </script>
+
+
 </body></html>
