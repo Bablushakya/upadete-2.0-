@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Leaf &amp; Loom | India Sourcing Trip</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Space+Grotesk:wght@300..700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Cinematic Motion System */
+        .section-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        section {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        section.active {
+            display: flex;
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
+            z-index: 2;
+        }
+
+        section.exit {
+            display: flex;
+            opacity: 0;
+            transform: translateY(-20px);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Navigation Slider */
+        .nav-slider {
+            position: absolute;
+            left: 0;
+            width: 2px;
+            height: 32px;
+            background-color: #a0522d;
+            transition: top 500ms cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        /* Glass Sidebar Customization */
+        .glass-sidebar {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.05);
+            border-radius: 24px;
+        }
+
+        /* Focus States */
+        .nav-link:focus-visible {
+            outline: 2px solid #a0522d;
+            outline-offset: 4px;
+            border-radius: 2px;
+        }
+
+        /* Parallax Effect */
+        .parallax-img {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            overflow: hidden; /* Controlled by JS paging */
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #dac1b8;
+            border-radius: 10px;
+        }
+
+        /* Immersive Experience Storytelling Transitions */
+        .experience-scroll-track {
+            position: relative;
+            width: 100%;
+            height: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .experience-sticky-container {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 75vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            overflow: hidden;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .experience-visual-col {
+            width: 100%;
+            height: 30vh;
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .experience-narrative-col {
+            width: 100%;
+            height: 35vh;
+            display: flex;
+            position: relative;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .experience-sticky-container {
+                flex-direction: row;
+                gap: 4rem;
+            }
+            .experience-visual-col {
+                width: 60%;
+                height: 75vh;
+            }
+            .experience-narrative-col {
+                width: 40%;
+                height: auto;
+                min-height: 60vh;
+            }
+        }
+
+        .experience-step {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1), transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+        
+        .experience-step.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .experience-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transform: scale(1.05);
+            transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+        }
+
+        .experience-image.active {
+            opacity: 1;
+            transform: scale(1.0);
+            pointer-events: auto;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            section, .nav-slider, .parallax-img {
+                transition: none !important;
+                transform: none !important;
+            }
+            section.active {
+                opacity: 1 !important;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#007280",
+                      "outline-variant": "#dac1b8",
+                      "surface-tint": "#944925",
+                      "surface-variant": "#e2e2e2",
+                      "inverse-surface": "#2f3131",
+                      "on-tertiary-fixed": "#001f24",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-primary-fixed-variant": "#76320f",
+                      "background": "#f9f9f9",
+                      "outline": "#87736b",
+                      "surface-container": "#eeeeee",
+                      "surface-dim": "#dadada",
+                      "tertiary-fixed-dim": "#7fd3e3",
+                      "on-error-container": "#93000a",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "on-primary-fixed": "#360f00",
+                      "on-primary-container": "#ffe1d6",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "primary": "#823b18",
+                      "primary-fixed": "#ffdbcd",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#9defff",
+                      "tertiary": "#005863",
+                      "error-container": "#ffdad6",
+                      "on-secondary-container": "#636262",
+                      "surface-container-highest": "#e2e2e2",
+                      "secondary": "#5f5e5e",
+                      "primary-fixed-dim": "#ffb596",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#f9f9f9",
+                      "inverse-on-surface": "#f0f1f1",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#a0522d",
+                      "inverse-primary": "#ffb596",
+                      "on-background": "#1a1c1c",
+                      "secondary-container": "#e2dfde",
+                      "on-tertiary-fixed-variant": "#004f59",
+                      "surface-container-low": "#f3f3f4",
+                      "surface-container-high": "#e8e8e8",
+                      "on-tertiary-container": "#aef2ff",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface": "#f9f9f9",
+                      "on-surface": "#1a1c1c",
+                      "on-surface-variant": "#54433c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack_gap": "64px",
+                      "container_max": "1440px",
+                      "margin_mobile": "20px",
+                      "margin_desktop": "80px",
+                      "rail_width": "240px",
+                      "gutter": "32px"
+              },
+              "fontFamily": {
+                      "body-md": ["DM Sans"],
+                      "body-lg": ["DM Sans"],
+                      "display-lg-mobile": ["Playfair Display"],
+                      "headline-md": ["Playfair Display"],
+                      "nav-item": ["DM Sans"],
+                      "display-lg": ["Playfair Display"],
+                      "label-numeric": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "display-lg-mobile": ["40px", {"lineHeight": "1.2", "fontWeight": "400"}],
+                      "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "400"}],
+                      "nav-item": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "400"}],
+                      "label-numeric": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="font-body-md text-on-surface">
+<!-- Desktop Side Navigation Rail -->
+<nav class="glass-sidebar hidden md:flex fixed left-8 top-8 bottom-8 w-[280px] z-50 flex-col py-10 px-8 justify-between transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+<div class="relative">
+<div class="mb-12">
+<h1 class="font-display-lg text-headline-md tracking-tighter text-on-surface">Leaf &amp; Loom</h1>
+<p class="font-label-numeric text-label-numeric uppercase text-secondary tracking-widest mt-1">India Sourcing Trip</p>
+</div>
+<div class="flex flex-col gap-8 relative" id="nav-list">
+<div class="nav-slider" id="nav-slider"></div>
+<!-- Nav Items -->
+<a class="nav-link group flex items-center gap-4 pl-6 transition-all duration-500 text-primary-container" data-nav="0" href="#intro">
+<span class="font-label-numeric text-label-numeric opacity-40 group-hover:opacity-100">01</span>
+<span class="font-nav-item text-nav-item uppercase">Introduction</span>
+</a>
+<a class="nav-link group flex items-center gap-4 pl-6 opacity-60 transition-all duration-500 text-secondary hover:opacity-100" data-nav="1" href="#workshop">
+<span class="font-label-numeric text-label-numeric opacity-40 group-hover:opacity-100">02</span>
+<span class="font-nav-item text-nav-item uppercase">The Experience</span>
+</a>
+<a class="nav-link group flex items-center gap-4 pl-6 opacity-60 transition-all duration-500 text-secondary hover:opacity-100" data-nav="2" href="#materials">
+<span class="font-label-numeric text-label-numeric opacity-40 group-hover:opacity-100">03</span>
+<span class="font-nav-item text-nav-item uppercase">Logistics</span>
+</a>
+<a class="nav-link group flex items-center gap-4 pl-6 opacity-60 transition-all duration-500 text-secondary hover:opacity-100" data-nav="3" href="#artisans">
+<span class="font-label-numeric text-label-numeric opacity-40 group-hover:opacity-100">04</span>
+<span class="font-nav-item text-nav-item uppercase">Our Network</span>
+</a>
+<a class="nav-link group flex items-center gap-4 pl-6 opacity-60 transition-all duration-500 text-secondary hover:opacity-100" data-nav="4" href="#collection">
+<span class="font-label-numeric text-label-numeric opacity-40 group-hover:opacity-100">05</span>
+<span class="font-nav-item text-nav-item uppercase">Join Us</span>
+</a>
+</div>
+</div>
+<button class="border border-black/10 font-nav-item text-nav-item py-4 px-6 uppercase tracking-widest hover:bg-black/5 transition-all duration-700 focus-visible:outline-primary-container focus-visible:outline-2">
+        Apply Now
+    </button>
+</nav>
+<!-- Mobile Top Bar -->
+<header class="flex md:hidden fixed top-0 w-full z-40 bg-white/40 backdrop-blur-md justify-between items-center px-margin_mobile py-6 border-b border-black/5">
+<h1 class="font-display-lg-mobile text-display-lg-mobile text-on-surface">Leaf &amp; Loom</h1>
+<button class="font-nav-item text-nav-item text-primary-container uppercase">Apply</button>
+</header>
+<!-- Mobile Bottom Navigation -->
+<nav class="fixed md:hidden bottom-4 left-margin_mobile right-margin_mobile z-50 bg-white/65 backdrop-blur-[14px] h-16 rounded-full border border-black/10 flex justify-around items-center px-6">
+<a class="text-primary-container font-label-numeric text-label-numeric flex flex-col items-center" data-nav="0" href="#intro">
+<span class="material-symbols-outlined" style="font-size: 20px;">radio_button_checked</span>
+<span>01</span>
+</a>
+<a class="text-secondary opacity-60 font-label-numeric text-label-numeric flex flex-col items-center" data-nav="1" href="#workshop">
+<span class="material-symbols-outlined" style="font-size: 20px;">factory</span>
+<span>02</span>
+</a>
+<a class="text-secondary opacity-60 font-label-numeric text-label-numeric flex flex-col items-center" data-nav="2" href="#materials">
+<span class="material-symbols-outlined" style="font-size: 20px;">architecture</span>
+<span>03</span>
+</a>
+<a class="text-secondary opacity-60 font-label-numeric text-label-numeric flex flex-col items-center" data-nav="3" href="#artisans">
+<span class="material-symbols-outlined" style="font-size: 20px;">groups</span>
+<span>04</span>
+</a>
+<a class="text-secondary opacity-60 font-label-numeric text-label-numeric flex flex-col items-center" data-nav="4" href="#collection">
+<span class="material-symbols-outlined" style="font-size: 20px;">diamond</span>
+<span>05</span>
+</a>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-[320px] px-margin_mobile md:px-margin_desktop min-h-screen">
+<!-- Progress Indicator (Top Right) -->
+<div class="fixed top-10 right-10 z-40 hidden md:block">
+<p class="font-label-numeric text-label-numeric tracking-widest">
+<span class="text-primary-container" id="current-index">01</span>
+<span class="text-outline-variant mx-2">/</span>
+<span class="text-secondary">05</span>
+</p>
+</div>
+<div class="section-container" id="main-scroll-container">
+<!-- Section 01: Introduction -->
+<section class="active flex-col py-20 overflow-y-auto custom-scrollbar" id="intro">
+    <div class="max-w-5xl w-full">
+        <!-- Breadcrumb / Header Label -->
+        <p class="font-label-numeric text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">01 / Introduction</p>
+        
+        <!-- Large Editorial Headline -->
+        <h2 class="font-display-lg text-display-lg md:text-6xl mb-8 leading-[1.1] max-w-4xl">
+            Source Directly from <br/>India with <span class="italic font-light">Confidence</span>.
+        </h2>
+        
+        <!-- Hero Image & Lead Copy Split Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start mb-24">
+            <div class="md:col-span-7 aspect-[16/10] overflow-hidden rounded-xl shadow-2xl relative group">
+                <img class="parallax-img w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" alt="Master craftsman working on traditional handloom weaving fabric in India." src="hero_artisan_sourcing.png"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+            </div>
+            
+            <div class="md:col-span-5 flex flex-col justify-between h-full min-h-[300px]">
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-8">
+                    Join a professionally guided sourcing journey designed for makers, product developers, retailers, and brand owners looking to discover manufacturers, artisans, and new product opportunities.
+                </p>
+                <div class="flex flex-col gap-4">
+                    <button class="bg-primary text-on-primary font-nav-item py-4 px-8 uppercase tracking-widest hover:bg-primary-container transition-all shadow-md hover:shadow-lg">Apply for the Next Trip</button>
+                    <button class="border border-outline text-on-surface-variant font-nav-item py-4 px-8 uppercase tracking-widest hover:bg-surface-container transition-all">Schedule a Discovery Call</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Three Pillars: Unique, Destination, Who It's For -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 border-t border-outline-variant/30 mb-20">
+            <div>
+                <span class="font-label-numeric text-xs text-primary uppercase tracking-[0.2em] block mb-3">01 . What Makes Us Unique</span>
+                <h4 class="font-display-lg text-xl mb-4">Direct Guided Access</h4>
+                <p class="font-body-md text-on-surface-variant leading-relaxed">
+                    We bypass standard trade show brokers, bringing you directly onto factory floors and into remote artisan workshops where actual production happens, with full transparency.
+                </p>
+            </div>
+            
+            <div>
+                <span class="font-label-numeric text-xs text-primary uppercase tracking-[0.2em] block mb-3">02 . Sourcing Destination</span>
+                <h4 class="font-display-lg text-xl mb-4">Why Source From India</h4>
+                <p class="font-body-md text-on-surface-variant leading-relaxed">
+                    India offers unparalleled design heritage, small-batch flexibility, organic cotton certifications, and skilled hand-craftsmanship that cannot be replicated by automated factories elsewhere.
+                </p>
+            </div>
+            
+            <div>
+                <span class="font-label-numeric text-xs text-primary uppercase tracking-[0.2em] block mb-3">03 . Who It Is For</span>
+                <h4 class="font-display-lg text-xl mb-4">Curated Sourcing Groups</h4>
+                <p class="font-body-md text-on-surface-variant leading-relaxed">
+                    Designed specifically for brand founders, retailers, interior designers, and makers who prioritize design authenticity, sustainable materials, and direct relationship building.
+                </p>
+            </div>
+        </div>
+
+        <!-- Ideal Participants Boxed Grids -->
+        <div class="bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-2xl mb-20">
+            <h3 class="font-headline-md text-headline-md mb-8">Ideal Sourcing Participants</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h4 class="font-nav-item uppercase tracking-widest text-primary text-sm mb-4">Ideal For</h4>
+                    <ul class="space-y-3 font-body-md text-secondary">
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Retail Store Owners</strong> looking for unique products</li>
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Product Developers</strong> seeking custom manufacturing</li>
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Brand Founders</strong> looking to establish direct factory ties</li>
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Wholesale Businesses</strong> optimizing supply chain costs</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-nav-item uppercase tracking-widest text-primary text-sm mb-4">Focus Groups</h4>
+                    <ul class="space-y-3 font-body-md text-secondary">
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Interior Designers</strong> looking for bespoke furniture & crafts</li>
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Makers & Artisans</strong> scaling heritage collections</li>
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Sustainable Brands</strong> requiring ethical production audits</li>
+                        <li class="flex items-center gap-2">• <strong class="text-on-surface">E-commerce Brands</strong> upgrading product quality</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Continue to next section -->
+        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="1">
+            <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
+            <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">The Experience</h4>
+            <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
+                <span class="material-symbols-outlined">expand_more</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 02: The Experience -->
+<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="workshop">
+    <div class="experience-scroll-track" id="experience-scroll-track">
+        <!-- Sticky Storytelling Container -->
+        <div class="experience-sticky-container">
+            <!-- Visual Column (70-80% visual focus on desktop) -->
+            <div class="experience-visual-col">
+                <img class="experience-image active" src="factory_artisan_workshop.png" alt="Factory Tours &amp; Artisan Workshops" />
+                <img class="experience-image" src="product_sourcing_materials.png" alt="Product Sourcing &amp; Material Discovery" />
+                <img class="experience-image" src="trade_show_markets.png" alt="Trade Shows &amp; Market Visits" />
+                <img class="experience-image" src="cultural_experience_networking.png" alt="Cultural Experiences &amp; Supplier Networking" />
+            </div>
+            
+            <!-- Narrative Column (30% focus) with Timeline progress indicator -->
+            <div class="experience-narrative-col">
+                <!-- Premium Vertical Timeline Progress Bar -->
+                <div class="flex flex-col items-center w-8 shrink-0 relative">
+                    <!-- Step 01 -->
+                    <div class="progress-indicator-label font-label-numeric text-xs text-primary font-bold transition-all duration-300">01</div>
+                    <div class="w-[2px] bg-secondary/10 grow my-2 relative overflow-hidden">
+                        <div class="progress-line-fill absolute top-0 left-0 w-full bg-primary transition-all duration-75" style="height: 0%;"></div>
+                    </div>
+                    
+                    <!-- Step 02 -->
+                    <div class="progress-indicator-label font-label-numeric text-xs text-secondary/40 transition-all duration-300">02</div>
+                    <div class="w-[2px] bg-secondary/10 grow my-2 relative overflow-hidden">
+                        <div class="progress-line-fill absolute top-0 left-0 w-full bg-primary transition-all duration-75" style="height: 0%;"></div>
+                    </div>
+                    
+                    <!-- Step 03 -->
+                    <div class="progress-indicator-label font-label-numeric text-xs text-secondary/40 transition-all duration-300">03</div>
+                    <div class="w-[2px] bg-secondary/10 grow my-2 relative overflow-hidden">
+                        <div class="progress-line-fill absolute top-0 left-0 w-full bg-primary transition-all duration-75" style="height: 0%;"></div>
+                    </div>
+                    
+                    <!-- Step 04 -->
+                    <div class="progress-indicator-label font-label-numeric text-xs text-secondary/40 transition-all duration-300">04</div>
+                </div>
+                
+                <!-- Editorial Text Contents -->
+                <div class="grow relative min-h-[30vh]">
+                    <!-- Step 1 Text -->
+                    <div class="experience-step active">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 01</p>
+                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Factory Tours &amp; Artisan Workshops</h3>
+                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                            Explore audited manufacturing units at scale and engage directly with master crafters to understand traditional and custom production possibilities.
+                        </p>
+                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Supplier access: Vetted direct factory tours</p>
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Artisan traditions: Handloom &amp; stone craft guilds</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 Text -->
+                    <div class="experience-step">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 02</p>
+                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Product Sourcing &amp; Material Discovery</h3>
+                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                            Uncover exceptional materials, textiles, home decor, and new product opportunities directly from source suppliers.
+                        </p>
+                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Sourcing opportunities: Organic cotton &amp; dyes</p>
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Manufacturing insight: Direct sample development</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 Text -->
+                    <div class="experience-step">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 03</p>
+                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Trade Shows &amp; Market Visits</h3>
+                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                            Navigate premier trade shows (like IHGF) and vibrant local artisan markets to expand your product catalog.
+                        </p>
+                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Trade show access: Delhi IHGF Fair guidance</p>
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Sourcing networks: Connect with export experts</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 Text -->
+                    <div class="experience-step">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 04</p>
+                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Cultural Experiences &amp; Supplier Networking</h3>
+                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                            Participate in authentic cultural experiences while building strong, direct business relationships with reliable supply chain partners.
+                        </p>
+                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Supplier networking: Palace courtyard dinners</p>
+                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Business bridge: Overcoming cultural gaps</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Spacer to push the itinerary below the 400vh storytelling track -->
+        <div style="height: 400vh;"></div>
+    </div>
+    
+    <!-- Sample Itinerary (scrolls up naturally after storytelling container finishes) -->
+    <div class="relative w-full py-16 flex flex-col justify-center">
+        <div class="bg-surface-container p-8 md:p-12 rounded-2xl border border-outline-variant/10">
+            <h3 class="font-display-lg text-headline-md mb-4 text-center">Sample 7-Day Itinerary</h3>
+            <p class="font-body-md text-on-surface-variant text-center max-w-xl mx-auto mb-16">
+                A carefully curated day-by-day journey bridging Old Delhi’s commercial hubs and Jaipur’s artisan factory grounds.
+            </p>
+            
+            <!-- Timeline Container -->
+            <div class="relative">
+                <!-- Center Line (Desktop) / Left Line (Mobile) -->
+                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-primary/10 -translate-x-1/2 md:translate-x-0"></div>
+                
+                <div class="space-y-12">
+                    <!-- Day 1 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
+                        <!-- Dot -->
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
+                        <!-- Card -->
+                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 01</span>
+                                <span class="font-label-numeric text-secondary/60 text-xs">Arrival</span>
+                            </div>
+                            <h4 class="font-display-lg text-lg mb-2">Arrival &amp; Welcome</h4>
+                            <p class="font-body-md text-on-surface-variant leading-relaxed">
+                                Airport pickup and transfer to boutique lodging followed by an evening welcome dinner and sourcing orientation.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 2 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:even:flex-row-reverse group pl-10 md:pl-0">
+                        <!-- Dot -->
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
+                        <!-- Card -->
+                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 02</span>
+                                <span class="font-label-numeric text-secondary/60 text-xs">Cultural Rest</span>
+                            </div>
+                            <h4 class="font-display-lg text-lg mb-2">Discover Old Delhi + Rest</h4>
+                            <p class="font-body-md text-on-surface-variant leading-relaxed">
+                                A gentle day of rest, exploring historical Old Delhi markets, local cuisine, and acclimating to the environment.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 3 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
+                        <!-- Dot -->
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
+                        <!-- Card -->
+                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 03</span>
+                                <span class="font-label-numeric text-secondary/60 text-xs">Trade Show</span>
+                            </div>
+                            <h4 class="font-display-lg text-lg mb-2">IHGF Trade Show</h4>
+                            <p class="font-body-md text-on-surface-variant leading-relaxed">
+                                Explore the massive IHGF Delhi Fair, one of Asia's largest gift and home decor trade shows, to identify potential partners.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 4 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:even:flex-row-reverse group pl-10 md:pl-0">
+                        <!-- Dot -->
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
+                        <!-- Card -->
+                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 04</span>
+                                <span class="font-label-numeric text-secondary/60 text-xs">Supplier Depth</span>
+                            </div>
+                            <h4 class="font-display-lg text-lg mb-2">IHGF Trade Show</h4>
+                            <p class="font-body-md text-on-surface-variant leading-relaxed">
+                                A second dedicated day at the trade show for deep-dive supplier meetings, product evaluations, and custom sample discussions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 5 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
+                        <!-- Dot -->
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
+                        <!-- Card -->
+                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 05</span>
+                                <span class="font-label-numeric text-secondary/60 text-xs">Direct Factory</span>
+                            </div>
+                            <h4 class="font-display-lg text-lg mb-2">Jaipur Factory Meetings</h4>
+                            <p class="font-body-md text-on-surface-variant leading-relaxed">
+                                Travel to Jaipur for direct visits with vetted manufacturers, touring facility floors and meeting development teams.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 6 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:even:flex-row-reverse group pl-10 md:pl-0">
+                        <!-- Dot -->
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
+                        <!-- Card -->
+                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 06</span>
+                                <span class="font-label-numeric text-secondary/60 text-xs">Jaipur Crafts</span>
+                            </div>
+                            <h4 class="font-display-lg text-lg mb-2">Jaipur Discovery</h4>
+                            <p class="font-body-md text-on-surface-variant leading-relaxed">
+                                Explore Jaipur’s artisan communities, block printing workshops, local craft markets, and cultural sites.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Day 7 -->
+                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
+                        <!-- Dot -->
+                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
+                        <!-- Card -->
+                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 07</span>
+                                <span class="font-label-numeric text-secondary/60 text-xs">Departure</span>
+                            </div>
+                            <h4 class="font-display-lg text-lg mb-2">Wrap-Up &amp; Departure</h4>
+                            <p class="font-body-md text-on-surface-variant leading-relaxed">
+                                Final debriefing, pre-shipment logistics planning, and airport transfers for departure.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Continue to next section -->
+        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="2">
+            <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
+            <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">Logistics &amp; Inclusions</h4>
+            <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
+                <span class="material-symbols-outlined">expand_more</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 03: Logistics -->
+<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="materials">
+    <div class="max-w-5xl w-full">
+        <p class="font-label-numeric text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">03 / Logistics</p>
+        <h2 class="font-display-lg text-display-lg mb-12">Logistics, Inclusions &amp; <span class="italic font-light">Pricing</span></h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20 items-start">
+            <!-- Left Side: Inclusions & Exclusions -->
+            <div class="md:col-span-7 space-y-8">
+                <!-- What's Included -->
+                <div class="border border-outline-variant/30 p-8 rounded-2xl bg-surface-container-low shadow-sm">
+                    <h3 class="font-nav-item uppercase tracking-widest text-primary text-sm mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">done_all</span> What's Included
+                    </h3>
+                    <ul class="space-y-4 font-body-md text-on-surface-variant">
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Airport pickup, transfer &amp; private ground transportation throughout India</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Premium heritage hotel &amp; boutique lodging accommodations</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Professionally guided factory floor tours &amp; direct artisan introductions</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> English-Hindi translation assistance and cultural bridge support</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Pre-trip sourcing consultations, luggage planning, and travel orientations</li>
+                    </ul>
+                </div>
+                
+                <!-- What's Not Included -->
+                <div class="bg-surface-container border border-outline-variant/10 p-8 rounded-2xl shadow-sm">
+                    <h3 class="font-nav-item uppercase tracking-widest text-secondary text-sm mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-secondary">block</span> What's Not Included
+                    </h3>
+                    <ul class="space-y-4 font-body-md text-secondary">
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> International airfare to and from New Delhi</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Compulsory international travel &amp; medical insurance</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Passport fees &amp; Indian visa application costs</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Personal shopping budget, custom samples, and individual cargo shipping</li>
+                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Most daily lunch &amp; dinner meals outside scheduled group dining events</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Right Side: Pricing & Visual Asset -->
+            <div class="md:col-span-5 space-y-8">
+                <!-- Pricing & Payment Card -->
+                <div class="bg-primary-container p-8 rounded-2xl text-on-primary shadow-xl relative overflow-hidden">
+                    <div class="absolute -right-16 -top-16 w-32 h-32 bg-white/5 rounded-full pointer-events-none"></div>
+                    <p class="font-label-numeric uppercase tracking-widest text-xs mb-2 opacity-75">Investment Details</p>
+                    <h3 class="font-display-lg text-2xl md:text-3xl mb-6">Consultation-Based Pricing</h3>
+                    <ul class="space-y-4 font-body-md mb-8 opacity-90 text-sm md:text-base leading-relaxed">
+                        <li>• <strong class="text-white">Discovery Call Pricing:</strong> Investment details are shared during your introductory discovery call to fit your business goals.</li>
+                        <li>• <strong class="text-white">Qualified Applicants:</strong> Receive full trip pricing and payment schedules immediately after application approval.</li>
+                        <li>• <strong class="text-white">Deposit Process:</strong> A refundable placement deposit is required to secure your slot after acceptance.</li>
+                        <li>• <strong class="text-white">Payment Schedule:</strong> Installment payment terms are available for early registrants.</li>
+                        <li>• <strong class="text-white">Cancellation Policy:</strong> Details regarding flexible cancellation and refund terms will be provided in your custom trip contract.</li>
+                    </ul>
+                    <div class="border-t border-white/20 pt-4 text-xs italic opacity-75">
+                        *Flexible business financing options may be discussed during your discovery call.
+                    </div>
+                </div>
+                
+                <!-- Logistics Image -->
+                <div class="aspect-[4/3] overflow-hidden rounded-2xl shadow-lg relative group">
+                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="logistics_hotel_travel.png" alt="Boutique hotel accommodation and comfortable transportation during the India sourcing trip."/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
+                    <p class="absolute bottom-4 left-4 text-white font-label-numeric text-xs uppercase tracking-widest">Comfort &amp; Logistics Vetted</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue to next section -->
+        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="3">
+            <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
+            <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">Our Network</h4>
+            <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
+                <span class="material-symbols-outlined">expand_more</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 04: Our Network -->
+<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="artisans">
+    <div class="max-w-6xl w-full mx-auto">
+        <p class="font-label-numeric text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">04 / Our Network</p>
+        
+        <!-- Part 1: Why Travel With Leaf & Loom -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-24 pb-16 border-b border-outline-variant/20">
+            <div class="md:col-span-6 space-y-6">
+                <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight">Why Travel With <br/><span class="italic font-light">Leaf &amp; Loom</span>?</h2>
+                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    With over 42 years of dedicated experience in the gift and home décor industry, Leaf &amp; Loom serves as a trusted business and cultural bridge in India. 
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                    <div>
+                        <h4 class="font-nav-item uppercase text-primary text-xs tracking-wider mb-2">Established Relationships</h4>
+                        <p class="font-body-md text-secondary text-sm">Direct, trusted access to manufacturers built over four decades.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-nav-item uppercase text-primary text-xs tracking-wider mb-2">Cultural Expertise</h4>
+                        <p class="font-body-md text-secondary text-sm">Deep understanding of local business etiquette and negotiations.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-nav-item uppercase text-primary text-xs tracking-wider mb-2">Manufacturing Knowledge</h4>
+                        <p class="font-body-md text-secondary text-sm">Technical insight into production lines, compliance, and QC.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-nav-item uppercase text-primary text-xs tracking-wider mb-2">Tailored Support</h4>
+                        <p class="font-body-md text-secondary text-sm">Personalized guidance from sampling to container shipping.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="md:col-span-6">
+                <div class="aspect-[16/11] overflow-hidden rounded-2xl shadow-xl relative group">
+                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="sourcing_network_products.png" alt="A curation of premium textiles and craft products sourced through the Leaf & Loom network."/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 2 & 3 Grid: Who You'll Meet & Expected Outcomes -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
+            <!-- Left Side: Who You'll Meet -->
+            <div class="lg:col-span-7 space-y-8">
+                <h3 class="font-headline-md text-headline-md">Who You'll Meet</h3>
+                <p class="font-body-md text-on-surface-variant mb-6">
+                    Connect directly with the decision-makers on factory floors and in artisan cooperatives. 
+                </p>
+                <div class="space-y-6">
+                    <div class="flex gap-5 p-5 bg-surface-container-low rounded-xl border border-outline-variant/20">
+                        <div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center shrink-0 shadow-sm">
+                            <span class="material-symbols-outlined text-primary">factory</span>
+                        </div>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-sm font-bold text-on-surface mb-1">Vetted Manufacturers &amp; Exporters</h4>
+                            <p class="font-body-md text-secondary">Tour established production facilities certified for international social compliance and meet export management teams.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-5 p-5 bg-surface-container-low rounded-xl border border-outline-variant/20">
+                        <div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center shrink-0 shadow-sm">
+                            <span class="material-symbols-outlined text-tertiary">groups</span>
+                        </div>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-sm font-bold text-on-surface mb-1">Artisan Groups &amp; Handloom Cooperatives</h4>
+                            <p class="font-body-md text-secondary">Connect with craft guilds and small-scale custom workshops specializing in traditional wood carving, metalwork, and hand-weaving.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex gap-5 p-5 bg-surface-container-low rounded-xl border border-outline-variant/20">
+                        <div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center shrink-0 shadow-sm">
+                            <span class="material-symbols-outlined text-secondary">eco</span>
+                        </div>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-sm font-bold text-on-surface mb-1">Sustainable &amp; Organic Suppliers</h4>
+                            <p class="font-body-md text-secondary">Establish ties with raw materials suppliers offering organic cotton, linen, natural vegetable dyes, and recycled materials.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Side: Expected Outcomes -->
+            <div class="lg:col-span-5 bg-surface-container p-8 md:p-10 rounded-2xl border border-outline-variant/20 shadow-sm">
+                <h3 class="font-headline-md mb-6">Expected Outcomes</h3>
+                <p class="font-body-md text-on-surface-variant mb-8 leading-relaxed">
+                    Leave the trip with direct business relationships, expanded profit opportunities, and the sourcing confidence to manage production from thousands of miles away.
+                </p>
+                <div class="space-y-6">
+                    <div class="border-b border-outline-variant/20 pb-4">
+                        <p class="font-display-lg text-primary text-4xl leading-none mb-1">150+</p>
+                        <p class="font-label-numeric uppercase text-xs tracking-wider text-secondary">Vetted Supplier Connections</p>
+                    </div>
+                    <div class="border-b border-outline-variant/20 pb-4">
+                        <p class="font-display-lg text-primary text-4xl leading-none mb-1">100%</p>
+                        <p class="font-label-numeric uppercase text-xs tracking-wider text-secondary">Direct Sourcing, No Middlemen</p>
+                    </div>
+                    <div>
+                        <p class="font-display-lg text-primary text-4xl leading-none mb-1">Unlimited</p>
+                        <p class="font-label-numeric uppercase text-xs tracking-wider text-secondary">Bespoke Product Opportunities</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part 4: Testimonials -->
+        <div class="pt-16 border-t border-outline-variant/30">
+            <h3 class="font-label-numeric text-center uppercase tracking-[0.2em] text-xs mb-12 text-secondary">Success Stories &amp; Testimonials</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant/20 flex flex-col justify-between shadow-sm">
+                    <p class="italic font-body-lg text-secondary leading-relaxed mb-6">
+                        "The access Leaf &amp; Loom provided was transformative. We found three new primary suppliers that we never would have discovered on our own or at trade shows."
+                    </p>
+                    <span class="block font-label-numeric text-xs uppercase tracking-widest text-primary">— Sarah J., Brand Founder</span>
+                </div>
+                <div class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant/20 flex flex-col justify-between shadow-sm">
+                    <p class="italic font-body-lg text-secondary leading-relaxed mb-6">
+                        "Navigating Indian manufacturing can be daunting, but having expert guides who understand both the western market and local factory floors made all the difference."
+                    </p>
+                    <span class="block font-label-numeric text-xs uppercase tracking-widest text-primary">— Marcus T., Creative Director</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue to next section -->
+        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="4">
+            <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
+            <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">Join Us</h4>
+            <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
+                <span class="material-symbols-outlined">expand_more</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 05: Join Us -->
+<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="collection">
+    <div class="max-w-5xl w-full mx-auto">
+        <p class="font-label-numeric text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">05 / Join Us</p>
+        
+        <!-- Header Split with Image -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-20">
+            <div class="md:col-span-7">
+                <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight mb-6">Apply &amp; Join the Sourcing Journey</h2>
+                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    Our groups are strictly limited to 8–12 brand owners and makers to ensure dedicated support and personalized introductions at every step. Submit an application today to begin your journey.
+                </p>
+            </div>
+            <div class="md:col-span-5">
+                <div class="aspect-[4/3] overflow-hidden rounded-2xl shadow-lg relative group">
+                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="application_planning_lifestyle.png" alt="A relaxed preparation session planning the sourcing route in India."/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Steps -->
+        <div class="mb-24 pt-12 border-t border-outline-variant/30">
+            <h3 class="font-headline-md text-center mb-16">The Journey Ahead: Application Steps</h3>
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+                <!-- Step 1 -->
+                <div class="text-center p-6 bg-surface-container-low border border-outline-variant/20 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                    <div class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-numeric flex items-center justify-center mx-auto mb-4 text-sm font-bold shadow">01</div>
+                    <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold mb-2">Submit Application</h4>
+                    <p class="text-xs text-secondary leading-relaxed">Fill out our brief sourcing questionnaire to share your product interests and goals.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="text-center p-6 bg-surface-container-low border border-outline-variant/20 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                    <div class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-numeric flex items-center justify-center mx-auto mb-4 text-sm font-bold shadow">02</div>
+                    <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold mb-2">Introductory Call</h4>
+                    <p class="text-xs text-secondary leading-relaxed">Schedule a discovery call to discuss custom factory routes and fit parameters.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="text-center p-6 bg-surface-container-low border border-outline-variant/20 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                    <div class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-numeric flex items-center justify-center mx-auto mb-4 text-sm font-bold shadow">03</div>
+                    <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold mb-2">Acceptance &amp; Deposit</h4>
+                    <p class="text-xs text-secondary leading-relaxed">Receive acceptance notification and submit a deposit to secure your limited seat.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="text-center p-6 bg-surface-container-low border border-outline-variant/20 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                    <div class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-numeric flex items-center justify-center mx-auto mb-4 text-sm font-bold shadow">04</div>
+                    <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold mb-2">Pre-Trip Planning</h4>
+                    <p class="text-xs text-secondary leading-relaxed">Join cohort meetings for visa help, supply checklists, and shipping logistics.</p>
+                </div>
+                <!-- Step 5 -->
+                <div class="text-center p-6 bg-surface-container-low border border-outline-variant/20 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                    <div class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-numeric flex items-center justify-center mx-auto mb-4 text-sm font-bold shadow">05</div>
+                    <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold mb-2">Travel to India</h4>
+                    <p class="text-xs text-secondary leading-relaxed">Touch down in New Delhi, ready to source directly from vetted partners with confidence.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="mb-24 pt-12 border-t border-outline-variant/30">
+            <h3 class="font-headline-md text-center mb-12">Frequently Asked Questions</h3>
+            <div class="max-w-3xl mx-auto space-y-6">
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        Who is this trip best suited for?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        It is designed for retailers, product developers, brand founders, wholesale businesses, interior designers, makers, and artisans looking to source directly from India.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        Do I need sourcing experience?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        No prior sourcing experience is required. Leaf &amp; Loom provides guided assistance, translation, and consultations to help both beginners and experienced buyers navigate the process.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        How many people attend?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        To ensure a personalized and high-quality experience, our sourcing groups are kept small, typically consisting of 8 to 12 participants.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        Do I need a visa?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        Yes, an Indian visa is required for travel. Most travelers qualify for an e-Tourist or e-Business visa. We provide guidance and assistance during the pre-trip planning sessions.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        What should I pack?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        We recommend comfortable clothing suitable for warm weather and factory visits, along with good walking shoes. A detailed packing list is provided before departure.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        Will I have free time?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        Yes, the itinerary is designed to balance business and relaxation. We have dedicated discovery days (like in Old Delhi and Jaipur) where you can explore at your own pace.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        Can I bring a spouse or business partner?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        Yes, business partners and spouses are welcome. Each participant must submit an application so we can tailor the travel arrangements accordingly.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        What is the physical activity level?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        The trip involves a moderate amount of walking during factory tours, market visits, and trade shows. Comfortable walking shoes are highly recommended.
+                    </p>
+                </details>
+                
+                <details class="group border-b border-outline-variant/20 pb-4">
+                    <summary class="font-nav-item uppercase text-sm cursor-pointer list-none flex justify-between items-center py-2 text-on-surface hover:text-primary transition-colors">
+                        What happens after I apply?
+                        <span class="material-symbols-outlined transition-transform group-open:rotate-180 text-secondary">expand_more</span>
+                    </summary>
+                    <p class="mt-4 font-body-md text-secondary leading-relaxed pl-2">
+                        Once you submit your application, we will schedule an introductory discovery call to discuss your sourcing goals, walk you through the investment structure, and answer your questions.
+                    </p>
+                </details>
+            </div>
+        </div>
+
+        <!-- Final CTA & Contact Details -->
+        <div class="text-center pb-20 pt-12 border-t border-outline-variant/30">
+            <h2 class="font-display-lg text-4xl md:text-5xl mb-4">Ready to Source Directly from India?</h2>
+            <p class="font-body-lg text-on-surface-variant max-w-xl mx-auto mb-10 leading-relaxed">
+                Take the next step in scaling your business. Apply now or book a call to secure your place in our next cohort.
+            </p>
+            <div class="flex flex-col md:flex-row gap-6 justify-center max-w-lg mx-auto mb-12">
+                <button class="bg-black text-white font-nav-item py-5 px-10 uppercase tracking-[0.25em] text-xs hover:bg-primary transition-all duration-700 shadow-md">Apply Now</button>
+                <button class="border border-black text-on-surface font-nav-item py-5 px-10 uppercase tracking-[0.25em] text-xs hover:bg-black hover:text-white transition-all duration-700">Schedule Discovery Call</button>
+            </div>
+            
+            <div class="border-t border-outline-variant/20 pt-8 max-w-md mx-auto">
+                <p class="font-label-numeric text-secondary text-sm tracking-wider mb-2">sourcing@leafandloom.com | +1 (234) 567-890</p>
+                <p class="font-label-numeric text-secondary/60 text-xs tracking-wider">@leafandloom | Leaf &amp; Loom Sourcing Journey</p>
+            </div>
+        </div>
+    </div>
+</section>
+</section>
+</div>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileLinks = document.querySelectorAll('nav.md\\:hidden a');
+        const currentIndexEl = document.getElementById('current-index');
+        const slider = document.getElementById('nav-slider');
+        const parallaxImgs = document.querySelectorAll('.parallax-img');
+        
+        let activeIndex = 0;
+        let isTransitioning = false;
+
+        // Position initial slider
+        function updateSlider(index) {
+            const activeLink = document.querySelector(`[data-nav="${index}"]`);
+            if (activeLink && slider) {
+                const linkTop = activeLink.offsetTop;
+                const linkHeight = activeLink.offsetHeight;
+                slider.style.top = `${linkTop + (linkHeight / 2) - 16}px`;
+            }
+        }
+
+        function switchSection(nextIndex) {
+            if (nextIndex === activeIndex || isTransitioning) return;
+            isTransitioning = true;
+
+            const currentSection = sections[activeIndex];
+            const nextSection = sections[nextIndex];
+
+            // Clear any overscroll transformations on the leaving section
+            currentSection.style.transform = '';
+            currentSection.style.transition = '';
+
+            // Exit animation
+            currentSection.classList.add('exit');
+            currentSection.classList.remove('active');
+
+            // Nav update
+            navLinks.forEach((link, idx) => {
+                if (idx === nextIndex) {
+                    link.classList.remove('opacity-60', 'text-secondary');
+                    link.classList.add('text-primary-container');
+                } else {
+                    link.classList.add('opacity-60', 'text-secondary');
+                    link.classList.remove('text-primary-container');
+                }
+            });
+
+            mobileLinks.forEach((link, idx) => {
+                if (idx === nextIndex) {
+                    link.classList.remove('text-secondary', 'opacity-60');
+                    link.classList.add('text-primary-container');
+                } else {
+                    link.classList.add('text-secondary', 'opacity-60');
+                    link.classList.remove('text-primary-container');
+                }
+            });
+
+            if (currentIndexEl) currentIndexEl.textContent = `0${nextIndex + 1}`;
+            updateSlider(nextIndex);
+
+            // Wait for exit then show next
+            setTimeout(() => {
+                currentSection.style.display = 'none';
+                currentSection.classList.remove('exit');
+                
+                nextSection.style.display = 'flex';
+                // Reset scroll position for new sections
+                nextSection.scrollTop = 0;
+                // Small buffer for display: flex to register
+                requestAnimationFrame(() => {
+                    nextSection.classList.add('active');
+                });
+
+                activeIndex = nextIndex;
+                
+                // Keep transition lock active for extra cooldown to absorb trackpad momentum
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 300);
+            }, 700);
+        }
+
+        // Navigation Interception
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const index = parseInt(link.getAttribute('data-nav'));
+                switchSection(index);
+            });
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const index = parseInt(link.getAttribute('data-nav'));
+                switchSection(index);
+            });
+        });
+
+        // Bind next section footers
+        document.querySelectorAll('.next-section-trigger').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const index = parseInt(trigger.getAttribute('data-next-target'));
+                switchSection(index);
+            });
+        });
+
+        // Parallax Effect
+        window.addEventListener('mousemove', (e) => {
+            const x = (e.clientX - window.innerWidth / 2) * 0.01;
+            const y = (e.clientY - window.innerHeight / 2) * 0.01;
+            
+            parallaxImgs.forEach(img => {
+                img.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+            });
+        });
+
+        // Scroll Engine with resistance accumulation and decay
+        let overscrollAccumulator = 0;
+        let decayTimeout = null;
+        const OVERSCROLL_THRESHOLD = 180; // Accumulation threshold to fire transition
+
+        window.addEventListener('wheel', (e) => {
+            if (isTransitioning) return;
+            const currentSection = sections[activeIndex];
+            
+            // Check if section is scrollable
+            const isScrollable = currentSection.scrollHeight > currentSection.clientHeight;
+            const atTop = currentSection.scrollTop === 0;
+            const atBottom = Math.abs(currentSection.scrollHeight - currentSection.scrollTop - currentSection.clientHeight) < 2;
+
+            // Trigger scroll transitions at boundaries
+            if ((e.deltaY > 0 && atBottom) || (e.deltaY < 0 && atTop)) {
+                // Prevent browser standard focus scroll to maintain section flow control
+                e.preventDefault();
+
+                // Reset accumulator if scrolling in the opposite direction
+                if (Math.sign(e.deltaY) !== Math.sign(overscrollAccumulator) && overscrollAccumulator !== 0) {
+                    overscrollAccumulator = 0;
+                    currentSection.style.transition = 'transform 200ms ease-out';
+                    currentSection.style.transform = '';
+                    setTimeout(() => { currentSection.style.transition = ''; }, 200);
+                }
+
+                clearTimeout(decayTimeout);
+                overscrollAccumulator += e.deltaY;
+
+                // Visual elastic bounce feedback
+                const pullDirection = Math.sign(overscrollAccumulator);
+                const pullPercentage = Math.min(25, Math.abs(overscrollAccumulator) / 8);
+                currentSection.style.transition = 'none';
+                currentSection.style.transform = `translateY(${-pullDirection * pullPercentage}px)`;
+
+                // Verify threshold breach
+                if (overscrollAccumulator >= OVERSCROLL_THRESHOLD) {
+                    if (activeIndex < sections.length - 1) {
+                        switchSection(activeIndex + 1);
+                    }
+                    overscrollAccumulator = 0;
+                } else if (overscrollAccumulator <= -OVERSCROLL_THRESHOLD) {
+                    if (activeIndex > 0) {
+                        switchSection(activeIndex - 1);
+                    }
+                    overscrollAccumulator = 0;
+                } else {
+                    // Decay timer to return to normal if user stops scrolling
+                    decayTimeout = setTimeout(() => {
+                        currentSection.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1)';
+                        currentSection.style.transform = '';
+                        overscrollAccumulator = 0;
+                        setTimeout(() => { currentSection.style.transition = ''; }, 300);
+                    }, 250);
+                }
+            } else {
+                // If scrolling inside the section content, clear accumulator
+                overscrollAccumulator = 0;
+            }
+        }, { passive: false });
+
+        // Touch Swipe gestural control for mobile devices
+        let touchStartY = 0;
+        let touchStartScrollTop = 0;
+        let activeTouchSection = null;
+
+        window.addEventListener('touchstart', (e) => {
+            if (isTransitioning) return;
+            touchStartY = e.touches[0].clientY;
+            activeTouchSection = sections[activeIndex];
+            touchStartScrollTop = activeTouchSection.scrollTop;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (isTransitioning || !activeTouchSection) return;
+            const currentY = e.touches[0].clientY;
+            const deltaY = touchStartY - currentY; // positive = scroll down (finger swipe up)
+
+            const atTop = activeTouchSection.scrollTop === 0;
+            const atBottom = Math.abs(activeTouchSection.scrollHeight - activeTouchSection.scrollTop - activeTouchSection.clientHeight) < 2;
+
+            if (deltaY > 0 && atBottom) {
+                // Elastic bounce pull up at bottom
+                const pullAmount = Math.min(20, deltaY / 5);
+                activeTouchSection.style.transition = 'none';
+                activeTouchSection.style.transform = `translateY(${-pullAmount}px)`;
+            } else if (deltaY < 0 && atTop) {
+                // Elastic bounce pull down at top
+                const pullAmount = Math.min(20, -deltaY / 5);
+                activeTouchSection.style.transition = 'none';
+                activeTouchSection.style.transform = `translateY(${pullAmount}px)`;
+            } else {
+                activeTouchSection.style.transform = '';
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchend', (e) => {
+            if (isTransitioning || !activeTouchSection) return;
+            const currentY = e.changedTouches[0].clientY;
+            const deltaY = touchStartY - currentY;
+
+            const atTop = touchStartScrollTop === 0;
+            const atBottom = Math.abs(activeTouchSection.scrollHeight - activeTouchSection.scrollTop - activeTouchSection.clientHeight) < 5;
+            const SWIPE_THRESHOLD = 80;
+
+            if (deltaY > SWIPE_THRESHOLD && atBottom && activeIndex < sections.length - 1) {
+                switchSection(activeIndex + 1);
+            } else if (deltaY < -SWIPE_THRESHOLD && atTop && activeIndex > 0) {
+                switchSection(activeIndex - 1);
+            } else {
+                // Smooth snap-back animation
+                activeTouchSection.style.transition = 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1)';
+                activeTouchSection.style.transform = '';
+                const targetSec = activeTouchSection;
+                setTimeout(() => { targetSec.style.transition = ''; }, 300);
+            }
+            activeTouchSection = null;
+        }, { passive: true });
+
+        // Keyboard navigation for section transition triggers
+        window.addEventListener('keydown', (e) => {
+            if (isTransitioning) return;
+            const currentSection = sections[activeIndex];
+            const atTop = currentSection.scrollTop === 0;
+            const atBottom = Math.abs(currentSection.scrollHeight - currentSection.scrollTop - currentSection.clientHeight) < 5;
+
+            // Space (32), PageDown (34), ArrowDown (40)
+            if ((e.keyCode === 32 || e.keyCode === 34 || e.keyCode === 40) && atBottom) {
+                if (activeIndex < sections.length - 1) {
+                    e.preventDefault();
+                    switchSection(activeIndex + 1);
+                }
+            }
+            // PageUp (33), ArrowUp (38)
+            else if ((e.keyCode === 33 || e.keyCode === 38) && atTop) {
+                if (activeIndex > 0) {
+                    e.preventDefault();
+                    switchSection(activeIndex - 1);
+                }
+            }
+        });
+
+        // Experience storytelling scroll updates
+        const workshopSection = document.getElementById('workshop');
+        const experienceSteps = document.querySelectorAll('.experience-step');
+        const experienceImages = document.querySelectorAll('.experience-image');
+        const progressLines = document.querySelectorAll('.progress-line-fill');
+        const progressLabels = document.querySelectorAll('.progress-indicator-label');
+
+        workshopSection.addEventListener('scroll', () => {
+            const scrollTop = workshopSection.scrollTop;
+            const clientHeight = workshopSection.clientHeight;
+            
+            // Each experience step occupies a height of clientHeight (100vh) of scroll space.
+            const stepHeight = clientHeight;
+            let activeStepIndex = Math.floor(scrollTop / stepHeight);
+            activeStepIndex = Math.max(0, Math.min(3, activeStepIndex)); // Clamp 0-3
+            
+            // Toggle active classes on steps (narrative content)
+            experienceSteps.forEach((step, idx) => {
+                if (idx === activeStepIndex) {
+                    step.classList.add('active');
+                    step.classList.remove('opacity-0', 'translate-y-[20px]', 'pointer-events-none');
+                } else {
+                    step.classList.remove('active');
+                    step.classList.add('opacity-0', 'translate-y-[20px]', 'pointer-events-none');
+                }
+            });
+
+            // Toggle active classes on images
+            experienceImages.forEach((img, idx) => {
+                if (idx === activeStepIndex) {
+                    img.classList.add('active');
+                    img.classList.remove('opacity-0', 'scale-105', 'pointer-events-none');
+                } else {
+                    img.classList.remove('active');
+                    img.classList.add('opacity-0', 'scale-105', 'pointer-events-none');
+                }
+            });
+
+            // Update progress label styles
+            progressLabels.forEach((label, idx) => {
+                if (idx === activeStepIndex) {
+                    label.classList.add('text-primary', 'font-bold');
+                    label.classList.remove('text-secondary/40');
+                } else {
+                    label.classList.remove('text-primary', 'font-bold');
+                    label.classList.add('text-secondary/40');
+                }
+            });
+
+            // Update line fills
+            progressLines.forEach((line, idx) => {
+                if (idx < activeStepIndex) {
+                    line.style.height = '100%';
+                } else if (idx === activeStepIndex) {
+                    const stepScrollTop = scrollTop - (activeStepIndex * stepHeight);
+                    const percent = Math.min(100, Math.max(0, (stepScrollTop / stepHeight) * 100));
+                    line.style.height = `${percent}%`;
+                } else {
+                    line.style.height = '0%';
+                }
+            });
+        });
+
+        // Initial setup
+        updateSlider(0);
+    });
+</script>
+</body></html>
