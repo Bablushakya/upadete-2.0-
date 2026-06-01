@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Space+Grotesk:wght@300..700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <style>
         .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
         }
 
         /* Cinematic Motion System */
@@ -56,19 +56,33 @@
             left: 0;
             width: 2px;
             height: 32px;
-            background-color: #a0522d;
+            background-color: #823b18; /* primary terracotta */
             transition: top 500ms cubic-bezier(0.16, 1, 0.3, 1);
             pointer-events: none;
+        }
+        .nav-slider::after {
+            content: '';
+            position: absolute;
+            right: -3px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 6px;
+            height: 6px;
+            background-color: #823b18;
         }
 
         /* Glass Sidebar Customization */
         .glass-sidebar {
-            background: rgba(255, 255, 255, 0.65);
+            background: rgba(250, 248, 245, 0.75);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.05);
+            border: 1px solid rgba(135, 115, 107, 0.25);
+            box-shadow: 0 8px 32px 0 rgba(130,59,24,0.03);
             border-radius: 24px;
+            background-image: 
+                linear-gradient(to right, rgba(130, 59, 24, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(130, 59, 24, 0.02) 1px, transparent 1px);
+            background-size: 10px 10px;
         }
 
         /* Focus States */
@@ -85,8 +99,22 @@
         }
 
         body {
-            background-color: #f9f9f9;
+            background-color: #FAF8F5; /* warm unbleached cotton paper tone */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M30,50 C35,45 40,55 45,50' stroke='rgba(130,59,24,0.03)' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3Cpath d='M70,20 C75,25 72,30 78,28' stroke='rgba(130,59,24,0.02)' stroke-width='1' fill='none' stroke-linecap='round'/%3E%3Cpath d='M15,80 C18,85 22,82 25,88' stroke='rgba(130,59,24,0.03)' stroke-width='0.8' fill='none' stroke-linecap='round'/%3E%3Cpath d='M85,75 C90,72 88,68 92,65' stroke='rgba(130,59,24,0.02)' stroke-width='1.2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: repeat;
             overflow: hidden; /* Controlled by JS paging */
+        }
+
+        /* Editorial Dropcap */
+        .editorial-dropcap::first-letter {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            float: left;
+            line-height: 0.85;
+            margin-right: 0.6rem;
+            margin-top: 0.15rem;
+            color: #823b18; /* primary terracotta */
+            font-weight: 500;
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -130,8 +158,14 @@
             height: 30vh;
             position: relative;
             overflow: hidden;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-top-left-radius: 160px;
+            border-top-right-radius: 160px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(130, 59, 24, 0.15);
+            background-color: #FAF8F5;
+            padding: 8px;
+            border: 1px solid rgba(135, 115, 107, 0.25);
         }
 
         .experience-narrative-col {
@@ -178,10 +212,14 @@
 
         .experience-image {
             position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
+            inset: 8px;
+            width: calc(100% - 16px);
+            height: calc(100% - 16px);
             object-fit: cover;
+            border-top-left-radius: 152px;
+            border-top-right-radius: 152px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
             opacity: 0;
             transform: scale(1.05);
             transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
@@ -192,6 +230,58 @@
             opacity: 1;
             transform: scale(1.0);
             pointer-events: auto;
+        }
+
+        /* Custom Heritage Mount Framing */
+        .heritage-image-frame {
+            position: relative;
+            padding: 8px;
+            background-color: #FAF8F5; /* sand/paper base */
+            border: 1px solid rgba(135, 115, 107, 0.25);
+            box-shadow: 0 20px 45px -15px rgba(130, 59, 24, 0.12);
+            transition: all 0.5s ease;
+        }
+
+        .heritage-image-frame::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            border: 1px dashed #C59B27; /* Antique Gold dashed border */
+            opacity: 0.45;
+            pointer-events: none;
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+        }
+
+        .heritage-image-frame-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .heritage-image-filter {
+            filter: sepia(12%) contrast(102%) brightness(98%);
+            transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .heritage-image-filter:hover {
+            filter: sepia(0%) contrast(100%) brightness(100%);
+        }
+
+        /* Scroll reveal system for Itinerary */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(35px) scale(0.98);
+            transition: opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1), transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+
+        .reveal-on-scroll.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -230,6 +320,9 @@
                       "on-primary-container": "#ffe1d6",
                       "secondary-fixed-dim": "#c8c6c5",
                       "primary": "#823b18",
+                      "gold": "#C59B27",
+                      "sandstone": "#CBB59E",
+                      "ivory": "#FAF8F5",
                       "primary-fixed": "#ffdbcd",
                       "surface-container-lowest": "#ffffff",
                       "on-secondary": "#ffffff",
@@ -302,6 +395,12 @@
 <div class="mb-12">
 <h1 class="font-display-lg text-headline-md tracking-tighter text-on-surface">Leaf &amp; Loom</h1>
 <p class="font-label-numeric text-label-numeric uppercase text-secondary tracking-widest mt-1">India Sourcing Trip</p>
+<div class="mt-4 flex items-center gap-2 border-t border-outline-variant/30 pt-3">
+    <span class="text-[10px] font-nav-item uppercase tracking-widest text-secondary/60">Journey Phase</span>
+    <span class="ml-auto font-label-numeric text-xs text-primary-container">
+        <span id="current-index">01</span><span class="text-secondary/40 mx-1">/</span><span class="text-secondary/60">05</span>
+    </span>
+</div>
 </div>
 <div class="flex flex-col gap-8 relative" id="nav-list">
 <div class="nav-slider" id="nav-slider"></div>
@@ -328,7 +427,19 @@
 </a>
 </div>
 </div>
-<button class="border border-black/10 font-nav-item text-nav-item py-4 px-6 uppercase tracking-widest hover:bg-black/5 transition-all duration-700 focus-visible:outline-primary-container focus-visible:outline-2">
+    <!-- Handcrafted stamp-style micro graphic -->
+    <div class="flex justify-center my-6 select-none pointer-events-none">
+        <svg class="w-14 h-14 text-primary/30 fill-none stroke-current" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="32" r="28" stroke-width="1" stroke-dasharray="2 2" />
+            <circle cx="32" cy="32" r="24" stroke-width="0.75" />
+            <path d="M32 16c0 0 5 6 5 9a5 5 0 0 1-10 0c0-3 5-9 5-9z" fill="currentColor" opacity="0.15" stroke-width="0.75" />
+            <path d="M20 38h24M22 41h20" stroke-width="0.75" />
+            <text x="32" y="34" font-family="Space Grotesk" font-size="3.5" text-anchor="middle" fill="currentColor" stroke="none" font-weight="700" letter-spacing="1">SOURCED</text>
+            <text x="32" y="47" font-family="Space Grotesk" font-size="3" text-anchor="middle" fill="currentColor" stroke="none" letter-spacing="0.5">DIRECT</text>
+        </svg>
+    </div>
+
+    <button class="border border-black/10 font-nav-item text-nav-item py-4 px-6 uppercase tracking-widest hover:bg-black/5 transition-all duration-700 focus-visible:outline-primary-container focus-visible:outline-2">
         Apply Now
     </button>
 </nav>
@@ -362,46 +473,62 @@
 </nav>
 <!-- Main Content Canvas -->
 <main class="md:ml-[320px] px-margin_mobile md:px-margin_desktop min-h-screen">
-<!-- Progress Indicator (Top Right) -->
-<div class="fixed top-10 right-10 z-40 hidden md:block">
-<p class="font-label-numeric text-label-numeric tracking-widest">
-<span class="text-primary-container" id="current-index">01</span>
-<span class="text-outline-variant mx-2">/</span>
-<span class="text-secondary">05</span>
-</p>
-</div>
+<!-- Progress Indicator (Moved to Left Sidebar) -->
 <div class="section-container" id="main-scroll-container">
 <!-- Section 01: Introduction -->
-<section class="active flex-col py-20 overflow-y-auto custom-scrollbar" id="intro">
+<section class="active flex-col pt-10 md:pt-16 pb-8 md:pb-12 overflow-y-auto custom-scrollbar" id="intro">
     <div class="max-w-5xl w-full">
         <!-- Breadcrumb / Header Label -->
-        <p class="font-label-numeric text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">01 / Introduction</p>
+        <p class="font-label-numeric text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-4">01 / Introduction</p>
         
         <!-- Large Editorial Headline -->
-        <h2 class="font-display-lg text-display-lg md:text-6xl mb-8 leading-[1.1] max-w-4xl">
+        <h2 class="font-display-lg text-5xl md:text-6xl mb-6 leading-[1.1] max-w-4xl">
             Source Directly from <br/>India with <span class="italic font-light">Confidence</span>.
         </h2>
         
         <!-- Hero Image & Lead Copy Split Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start mb-24">
-            <div class="md:col-span-7 aspect-[16/10] overflow-hidden rounded-xl shadow-2xl relative group">
-                <img class="parallax-img w-full h-full object-cover transition-all duration-1000 group-hover:scale-105" alt="Master craftsman working on traditional handloom weaving fabric in India." src="hero_artisan_sourcing.png"/>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center mb-12 md:mb-16">
+            <div class="md:col-span-7 max-h-[280px] md:max-h-[320px] lg:max-h-[360px] aspect-[16/10] heritage-image-frame rounded-t-[180px] rounded-b-2xl group relative overflow-hidden">
+                <div class="heritage-image-frame-inner rounded-t-[172px] rounded-b-xl w-full h-full">
+                    <img class="parallax-img w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 heritage-image-filter" alt="Master craftsman working on traditional handloom weaving fabric in India." src="hero_artisan_sourcing.png"/>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                </div>
             </div>
             
-            <div class="md:col-span-5 flex flex-col justify-between h-full min-h-[300px]">
-                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed mb-8">
+            <div class="md:col-span-5 flex flex-col justify-center gap-5 md:gap-6">
+                <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed editorial-dropcap">
                     Join a professionally guided sourcing journey designed for makers, product developers, retailers, and brand owners looking to discover manufacturers, artisans, and new product opportunities.
                 </p>
-                <div class="flex flex-col gap-4">
-                    <button class="bg-primary text-on-primary font-nav-item py-4 px-8 uppercase tracking-widest hover:bg-primary-container transition-all shadow-md hover:shadow-lg">Apply for the Next Trip</button>
-                    <button class="border border-outline text-on-surface-variant font-nav-item py-4 px-8 uppercase tracking-widest hover:bg-surface-container transition-all">Schedule a Discovery Call</button>
+                <div class="flex flex-col gap-3">
+                    <button class="bg-primary text-on-primary font-nav-item py-3 px-6 text-sm uppercase tracking-widest hover:bg-primary-container transition-all shadow-md hover:shadow-lg">Apply for the Next Trip</button>
+                    <button class="border border-outline text-on-surface-variant font-nav-item py-3 px-6 text-sm uppercase tracking-widest hover:bg-surface-container transition-all">Schedule a Discovery Call</button>
                 </div>
             </div>
         </div>
 
+        <!-- Jaipur-inspired geometric star divider -->
+        <div class="flex items-center justify-center my-16 opacity-75">
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+            <div class="mx-6 text-primary flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+                <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2C12 2 15 7 15 10C15 13 13 15 12 15C11 15 9 13 9 10C9 7 12 2 12 2Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 7 18 4 18C1 18 1 15 4 14C7 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 17 18 20 18C23 18 23 15 20 14C17 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                </svg>
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+            </div>
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+        </div>
+
+        <!-- Main section heading for Three Pillars -->
+        <div class="text-center mb-16">
+            <h3 class="font-display-lg text-3xl md:text-5xl text-on-surface uppercase tracking-widest font-normal">Why This Trip?</h3>
+            <div class="h-[1px] w-16 bg-primary/30 mx-auto mt-4"></div>
+        </div>
+
         <!-- Three Pillars: Unique, Destination, Who It's For -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-16 border-t border-outline-variant/30 mb-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-10 mb-20">
             <div>
                 <span class="font-label-numeric text-xs text-primary uppercase tracking-[0.2em] block mb-3">01 . What Makes Us Unique</span>
                 <h4 class="font-display-lg text-xl mb-4">Direct Guided Access</h4>
@@ -428,32 +555,157 @@
         </div>
 
         <!-- Ideal Participants Boxed Grids -->
-        <div class="bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 rounded-2xl mb-20">
-            <h3 class="font-headline-md text-headline-md mb-8">Ideal Sourcing Participants</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h4 class="font-nav-item uppercase tracking-widest text-primary text-sm mb-4">Ideal For</h4>
-                    <ul class="space-y-3 font-body-md text-secondary">
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Retail Store Owners</strong> looking for unique products</li>
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Product Developers</strong> seeking custom manufacturing</li>
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Brand Founders</strong> looking to establish direct factory ties</li>
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Wholesale Businesses</strong> optimizing supply chain costs</li>
-                    </ul>
+        <div class="bg-surface-container-low border border-outline-variant/20 p-8 md:p-12 lg:p-16 rounded-2xl mb-20 relative overflow-hidden shadow-sm">
+            <!-- Subtle Indian Inspired Inner Border Pattern -->
+            <div class="absolute inset-3 border border-dashed border-primary/20 pointer-events-none rounded-xl"></div>
+            
+            <!-- Corner Motifs -->
+            <!-- Top-Left Corner Motif -->
+            <div class="absolute top-4 left-4 pointer-events-none text-primary/35">
+                <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M2 2H20M2 2V20M2 2L14 14" />
+                    <path d="M8 2C8 6 6 8 2 8" />
+                    <circle cx="2" cy="2" r="1.5" fill="currentColor" />
+                </svg>
+            </div>
+            <!-- Top-Right Corner Motif -->
+            <div class="absolute top-4 right-4 pointer-events-none text-primary/35">
+                <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M30 2H12M30 2V20M30 2L18 14" />
+                    <path d="M24 2C24 6 26 8 30 8" />
+                    <circle cx="30" cy="2" r="1.5" fill="currentColor" />
+                </svg>
+            </div>
+            <!-- Bottom-Left Corner Motif -->
+            <div class="absolute bottom-4 left-4 pointer-events-none text-primary/35">
+                <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M2 30H20M2 30V12M2 30L14 18" />
+                    <path d="M8 30C8 26 6 24 2 24" />
+                    <circle cx="2" cy="30" r="1.5" fill="currentColor" />
+                </svg>
+            </div>
+            <!-- Bottom-Right Corner Motif -->
+            <div class="absolute bottom-4 right-4 pointer-events-none text-primary/35">
+                <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2">
+                    <path d="M30 30H12M30 30V12M30 30L18 18" />
+                    <path d="M24 30C24 26 26 24 30 24" />
+                    <circle cx="30" cy="30" r="1.5" fill="currentColor" />
+                </svg>
+            </div>
+
+            <!-- Header -->
+            <div class="text-center mb-12 relative z-10">
+                <p class="font-label-numeric text-[10px] text-gold uppercase tracking-[0.3em] mb-2">Curated Sourcing Profiles</p>
+                <h3 class="font-display-lg text-3xl md:text-4xl">Ideal Sourcing Participants</h3>
+                <div class="h-[1px] w-12 bg-primary/30 mx-auto mt-3"></div>
+            </div>
+
+            <!-- Columns Container -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 relative z-10 px-4 md:px-8">
+                
+                <!-- Left Column (01-04) -->
+                <div class="space-y-6 md:space-y-8">
+                    <!-- Item 1 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">01</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">Retail Store Owners</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Discover unique, high-margin finished goods directly from artisan workshop cooperatives.</p>
+                        </div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">02</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">Product Developers</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Source custom materials and connect with factories equipped for prototype development.</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">03</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">Brand Founders</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Bypass middlemen to establish transparent, direct-to-factory production relationships.</p>
+                        </div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">04</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">Wholesale Businesses</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Audit high-capacity manufacturers to scale production volume and optimize pricing.</p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-nav-item uppercase tracking-widest text-primary text-sm mb-4">Focus Groups</h4>
-                    <ul class="space-y-3 font-body-md text-secondary">
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Interior Designers</strong> looking for bespoke furniture & crafts</li>
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Makers & Artisans</strong> scaling heritage collections</li>
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">Sustainable Brands</strong> requiring ethical production audits</li>
-                        <li class="flex items-center gap-2">• <strong class="text-on-surface">E-commerce Brands</strong> upgrading product quality</li>
-                    </ul>
+
+                <!-- Handcrafted Vertical Divider (Desktop) -->
+                <div class="hidden md:flex absolute left-1/2 top-4 bottom-4 -translate-x-1/2 flex-col items-center justify-between pointer-events-none">
+                    <div class="w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent grow"></div>
+                    <div class="my-4 text-primary/40">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12,2 L15,9 L22,12 L15,15 L12,22 L9,15 L2,12 L9,9 Z M12,6 L10.2,10.2 L6,12 L10.2,13.8 L12,18 L13.8,13.8 L18,12 L13.8,10.2 Z" />
+                        </svg>
+                    </div>
+                    <div class="w-[1px] bg-gradient-to-b from-transparent via-primary/20 to-transparent grow"></div>
                 </div>
+
+                <!-- Right Column (05-08) -->
+                <div class="space-y-6 md:space-y-8">
+                    <!-- Item 5 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">05</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">Interior Designers</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Source bespoke furniture, custom rugs, and handcrafted home accessories for clients.</p>
+                        </div>
+                    </div>
+                    <!-- Item 6 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">06</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">Makers &amp; Artisans</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Collaborate with multi-generational Indian craft guilds to expand your artisanal collections.</p>
+                        </div>
+                    </div>
+                    <!-- Item 7 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">07</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">Sustainable Brands</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Verify ethical labor practices, organic fabrics, and natural dyes at the source.</p>
+                        </div>
+                    </div>
+                    <!-- Item 8 -->
+                    <div class="flex items-start gap-4 group">
+                        <span class="font-display-lg text-primary text-2xl font-bold tracking-tight shrink-0 w-8">08</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs tracking-wider font-bold text-on-surface mb-1">E-commerce Brands</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Upgrade packaging, establish strict quality control, and secure competitive lead times.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         
+        <!-- Jaipur-inspired geometric star divider -->
+        <div class="flex items-center justify-center my-16 opacity-75">
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+            <div class="mx-6 text-primary flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+                <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2C12 2 15 7 15 10C15 13 13 15 12 15C11 15 9 13 9 10C9 7 12 2 12 2Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 7 18 4 18C1 18 1 15 4 14C7 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 17 18 20 18C23 18 23 15 20 14C17 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                </svg>
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+            </div>
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+        </div>
+
         <!-- Continue to next section -->
-        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="1">
+        <div class="next-section-trigger py-10 mt-6 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="1">
             <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
             <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">The Experience</h4>
             <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
@@ -470,10 +722,10 @@
         <div class="experience-sticky-container">
             <!-- Visual Column (70-80% visual focus on desktop) -->
             <div class="experience-visual-col">
-                <img class="experience-image active" src="factory_artisan_workshop.png" alt="Factory Tours &amp; Artisan Workshops" />
-                <img class="experience-image" src="product_sourcing_materials.png" alt="Product Sourcing &amp; Material Discovery" />
-                <img class="experience-image" src="trade_show_markets.png" alt="Trade Shows &amp; Market Visits" />
-                <img class="experience-image" src="cultural_experience_networking.png" alt="Cultural Experiences &amp; Supplier Networking" />
+                <img class="experience-image active heritage-image-filter" src="factory_artisan_workshop.png" alt="Factory Tours &amp; Artisan Workshops" />
+                <img class="experience-image heritage-image-filter" src="product_sourcing_materials.png" alt="Product Sourcing &amp; Material Discovery" />
+                <img class="experience-image heritage-image-filter" src="trade_show_markets.png" alt="Trade Shows &amp; Market Visits" />
+                <img class="experience-image heritage-image-filter" src="cultural_experience_networking.png" alt="Cultural Experiences &amp; Supplier Networking" />
             </div>
             
             <!-- Narrative Column (30% focus) with Timeline progress indicator -->
@@ -506,53 +758,77 @@
                 <div class="grow relative min-h-[30vh]">
                     <!-- Step 1 Text -->
                     <div class="experience-step active">
-                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 01</p>
-                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Factory Tours &amp; Artisan Workshops</h3>
-                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.3em] mb-2">Experience 01</p>
+                        <h3 class="font-display-lg text-2xl md:text-4xl leading-tight mb-4 text-on-surface font-normal">Factory Tours &amp; Artisan Workshops</h3>
+                        <p class="font-body-md text-on-surface-variant text-sm md:text-lg leading-relaxed mb-6">
                             Explore audited manufacturing units at scale and engage directly with master crafters to understand traditional and custom production possibilities.
                         </p>
-                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Supplier access: Vetted direct factory tours</p>
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Artisan traditions: Handloom &amp; stone craft guilds</p>
+                        <div class="border-t border-outline-variant/30 mt-6 pt-5 space-y-3.5">
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Supplier access:</strong> Vetted direct factory tours</span>
+                            </div>
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Artisan traditions:</strong> Handloom &amp; stone craft guilds</span>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Step 2 Text -->
                     <div class="experience-step">
-                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 02</p>
-                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Product Sourcing &amp; Material Discovery</h3>
-                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.3em] mb-2">Experience 02</p>
+                        <h3 class="font-display-lg text-2xl md:text-4xl leading-tight mb-4 text-on-surface font-normal">Product Sourcing &amp; Material Discovery</h3>
+                        <p class="font-body-md text-on-surface-variant text-sm md:text-lg leading-relaxed mb-6">
                             Uncover exceptional materials, textiles, home decor, and new product opportunities directly from source suppliers.
                         </p>
-                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Sourcing opportunities: Organic cotton &amp; dyes</p>
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Manufacturing insight: Direct sample development</p>
+                        <div class="border-t border-outline-variant/30 mt-6 pt-5 space-y-3.5">
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Sourcing opportunities:</strong> Organic cotton &amp; dyes</span>
+                            </div>
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Manufacturing insight:</strong> Direct sample development</span>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Step 3 Text -->
                     <div class="experience-step">
-                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 03</p>
-                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Trade Shows &amp; Market Visits</h3>
-                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.3em] mb-2">Experience 03</p>
+                        <h3 class="font-display-lg text-2xl md:text-4xl leading-tight mb-4 text-on-surface font-normal">Trade Shows &amp; Market Visits</h3>
+                        <p class="font-body-md text-on-surface-variant text-sm md:text-lg leading-relaxed mb-6">
                             Navigate premier trade shows (like IHGF) and vibrant local artisan markets to expand your product catalog.
                         </p>
-                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Trade show access: Delhi IHGF Fair guidance</p>
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Sourcing networks: Connect with export experts</p>
+                        <div class="border-t border-outline-variant/30 mt-6 pt-5 space-y-3.5">
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Trade show access:</strong> Delhi IHGF Fair guidance</span>
+                            </div>
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Sourcing networks:</strong> Connect with export experts</span>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Step 4 Text -->
                     <div class="experience-step">
-                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.25em] mb-1">Experience 04</p>
-                        <h3 class="font-display-lg text-xl md:text-4xl leading-tight mb-3 text-on-surface">Cultural Experiences &amp; Supplier Networking</h3>
-                        <p class="font-body-md text-on-surface-variant text-xs md:text-base leading-relaxed mb-4">
+                        <p class="font-label-numeric text-xs text-primary uppercase tracking-[0.3em] mb-2">Experience 04</p>
+                        <h3 class="font-display-lg text-2xl md:text-4xl leading-tight mb-4 text-on-surface font-normal">Cultural Experiences &amp; Supplier Networking</h3>
+                        <p class="font-body-md text-on-surface-variant text-sm md:text-lg leading-relaxed mb-6">
                             Participate in authentic cultural experiences while building strong, direct business relationships with reliable supply chain partners.
                         </p>
-                        <div class="border-l-2 border-primary/20 pl-4 py-1 space-y-1">
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Supplier networking: Palace courtyard dinners</p>
-                            <p class="text-[10px] md:text-xs font-nav-item uppercase text-secondary tracking-wider">• Business bridge: Overcoming cultural gaps</p>
+                        <div class="border-t border-outline-variant/30 mt-6 pt-5 space-y-3.5">
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Supplier networking:</strong> Palace courtyard dinners</span>
+                            </div>
+                            <div class="flex items-start gap-3 text-xs md:text-sm font-nav-item uppercase tracking-wider text-secondary">
+                                <span class="text-primary text-[8px] mt-1">&#9670;</span>
+                                <span class="leading-normal"><strong class="text-on-surface font-medium">Business bridge:</strong> Overcoming cultural gaps</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -564,150 +840,186 @@
     </div>
     
     <!-- Sample Itinerary (scrolls up naturally after storytelling container finishes) -->
-    <div class="relative w-full py-16 flex flex-col justify-center">
-        <div class="bg-surface-container p-8 md:p-12 rounded-2xl border border-outline-variant/10">
-            <h3 class="font-display-lg text-headline-md mb-4 text-center">Sample 7-Day Itinerary</h3>
-            <p class="font-body-md text-on-surface-variant text-center max-w-xl mx-auto mb-16">
-                A carefully curated day-by-day journey bridging Old Delhi’s commercial hubs and Jaipur’s artisan factory grounds.
-            </p>
+    <div class="relative w-full py-20 flex flex-col justify-center">
+        <div class="bg-surface-container p-8 md:p-12 lg:p-16 rounded-2xl border border-outline-variant/10 relative overflow-hidden">
+            <!-- Subtle Mughal geometry star overlay in background -->
+            <div class="absolute inset-4 border border-dashed border-primary/10 pointer-events-none rounded-xl"></div>
             
-            <!-- Timeline Container -->
-            <div class="relative">
-                <!-- Center Line (Desktop) / Left Line (Mobile) -->
-                <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-[2px] bg-primary/10 -translate-x-1/2 md:translate-x-0"></div>
-                
-                <div class="space-y-12">
-                    <!-- Day 1 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
-                        <!-- Dot -->
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
-                        <!-- Card -->
-                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 01</span>
-                                <span class="font-label-numeric text-secondary/60 text-xs">Arrival</span>
-                            </div>
-                            <h4 class="font-display-lg text-lg mb-2">Arrival &amp; Welcome</h4>
-                            <p class="font-body-md text-on-surface-variant leading-relaxed">
-                                Airport pickup and transfer to boutique lodging followed by an evening welcome dinner and sourcing orientation.
-                            </p>
+            <div class="text-center mb-20 relative z-10">
+                <p class="font-label-numeric text-[10px] text-gold uppercase tracking-[0.3em] mb-2">Following the journey through India</p>
+                <h3 class="font-display-lg text-3xl md:text-5xl text-on-surface font-normal">7-Day Sourcing Itinerary</h3>
+                <div class="h-[1px] w-16 bg-primary/30 mx-auto mt-4"></div>
+            </div>
+            
+            <!-- Storytelling Itinerary Column Grid -->
+            <div class="space-y-28 md:space-y-36 relative z-10 px-2 md:px-6">
+                <!-- Day 1 & Day 2 Dual Row Layout -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
+    <!-- Left column: Day 1 Image then Day 2 Content -->
+    <div class="flex flex-col gap-10 md:gap-16">
+        <!-- Day 1 Image -->
+        <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
+            <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="ilteray/day 1.jpeg" alt="Day 1 - Arrival & Welcome"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+            </div>
+        </div>
+        <!-- Day 2 Content -->
+        <div class="reveal-on-scroll flex flex-col justify-center min-h-[220px]">
+            <span class="font-label-numeric text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 02</span>
+            <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Discover Old Delhi &amp; Acclimate</h4>
+            <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                A gentle day of rest, exploring historical Old Delhi markets, tasting local spices, and acclimating to the rich local environment.
+            </p>
+            <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
+        </div>
+    </div>
+    <!-- Right column: Day 1 Content then Day 2 Image -->
+    <div class="flex flex-col gap-10 md:gap-16 h-full justify-around py-4">
+        <!-- Day 1 Content -->
+        <div class="reveal-on-scroll flex flex-col justify-center min-h-[220px]">
+            <span class="font-label-numeric text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 01</span>
+            <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Arrival &amp; Welcome</h4>
+            <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                Airport pickup and transfer to boutique lodging followed by an evening welcome dinner and sourcing orientation.
+            </p>
+            <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
+        </div>
+        <!-- Day 2 Image -->
+        <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
+            <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="ilteray/day 2.jpeg" alt="Day 2 - Discover Old Delhi + Rest"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                <!-- Day 3 (Left Image, Right Content) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <!-- Left Image -->
+                    <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
+                        <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="ilteray/day 3.jpeg" alt="Day 3 - IHGF Trade Show"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                         </div>
                     </div>
-
-                    <!-- Day 2 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:even:flex-row-reverse group pl-10 md:pl-0">
-                        <!-- Dot -->
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
-                        <!-- Card -->
-                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 02</span>
-                                <span class="font-label-numeric text-secondary/60 text-xs">Cultural Rest</span>
-                            </div>
-                            <h4 class="font-display-lg text-lg mb-2">Discover Old Delhi + Rest</h4>
-                            <p class="font-body-md text-on-surface-variant leading-relaxed">
-                                A gentle day of rest, exploring historical Old Delhi markets, local cuisine, and acclimating to the environment.
-                            </p>
-                        </div>
+                    <!-- Right Content -->
+                    <div class="reveal-on-scroll flex flex-col justify-center">
+                        <span class="font-label-numeric text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 03</span>
+                        <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">IHGF Delhi Trade Show</h4>
+                        <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                            Explore the massive IHGF Delhi Fair, one of Asia's largest gift and home decor trade shows, to identify potential manufacturing and artisan partners.
+                        </p>
+                        <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
                     </div>
+                </div>
 
-                    <!-- Day 3 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
-                        <!-- Dot -->
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
-                        <!-- Card -->
-                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 03</span>
-                                <span class="font-label-numeric text-secondary/60 text-xs">Trade Show</span>
-                            </div>
-                            <h4 class="font-display-lg text-lg mb-2">IHGF Trade Show</h4>
-                            <p class="font-body-md text-on-surface-variant leading-relaxed">
-                                Explore the massive IHGF Delhi Fair, one of Asia's largest gift and home decor trade shows, to identify potential partners.
-                            </p>
-                        </div>
+                <!-- Day 4 (Right Image, Left Content) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <!-- Left Content -->
+                    <div class="reveal-on-scroll flex flex-col justify-center order-2 md:order-1">
+                        <span class="font-label-numeric text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 04</span>
+                        <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">IHGF Sourcing Depth</h4>
+                        <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                            A second dedicated day at the trade show for deep-dive supplier meetings, hands-on product evaluations, and custom sampling arrangements.
+                        </p>
+                        <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
                     </div>
-
-                    <!-- Day 4 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:even:flex-row-reverse group pl-10 md:pl-0">
-                        <!-- Dot -->
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
-                        <!-- Card -->
-                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 04</span>
-                                <span class="font-label-numeric text-secondary/60 text-xs">Supplier Depth</span>
-                            </div>
-                            <h4 class="font-display-lg text-lg mb-2">IHGF Trade Show</h4>
-                            <p class="font-body-md text-on-surface-variant leading-relaxed">
-                                A second dedicated day at the trade show for deep-dive supplier meetings, product evaluations, and custom sample discussions.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Day 5 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
-                        <!-- Dot -->
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
-                        <!-- Card -->
-                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 05</span>
-                                <span class="font-label-numeric text-secondary/60 text-xs">Direct Factory</span>
-                            </div>
-                            <h4 class="font-display-lg text-lg mb-2">Jaipur Factory Meetings</h4>
-                            <p class="font-body-md text-on-surface-variant leading-relaxed">
-                                Travel to Jaipur for direct visits with vetted manufacturers, touring facility floors and meeting development teams.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Day 6 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:even:flex-row-reverse group pl-10 md:pl-0">
-                        <!-- Dot -->
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
-                        <!-- Card -->
-                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 06</span>
-                                <span class="font-label-numeric text-secondary/60 text-xs">Jaipur Crafts</span>
-                            </div>
-                            <h4 class="font-display-lg text-lg mb-2">Jaipur Discovery</h4>
-                            <p class="font-body-md text-on-surface-variant leading-relaxed">
-                                Explore Jaipur’s artisan communities, block printing workshops, local craft markets, and cultural sites.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Day 7 -->
-                    <div class="relative flex flex-col md:flex-row items-start md:items-center justify-between md:odd:flex-row-reverse group pl-10 md:pl-0">
-                        <!-- Dot -->
-                        <div class="absolute left-4 md:left-1/2 w-4 h-4 rounded-full border-4 border-primary bg-background -translate-x-1/2 z-10 transition-transform duration-300 group-hover:scale-125"></div>
-                        <!-- Card -->
-                        <div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low border border-outline-variant/30 p-6 rounded-xl hover:shadow-md transition-shadow">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-label-numeric text-primary text-xs uppercase tracking-[0.2em]">Day 07</span>
-                                <span class="font-label-numeric text-secondary/60 text-xs">Departure</span>
-                            </div>
-                            <h4 class="font-display-lg text-lg mb-2">Wrap-Up &amp; Departure</h4>
-                            <p class="font-body-md text-on-surface-variant leading-relaxed">
-                                Final debriefing, pre-shipment logistics planning, and airport transfers for departure.
-                            </p>
+                    <!-- Right Image -->
+                    <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden order-1 md:order-2">
+                        <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="ilteray/day 4.jpeg" alt="Day 4 - IHGF Sourcing"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Day 5 (Left Image, Right Content) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <!-- Left Image -->
+                    <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
+                        <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="ilteray/day 5.jpeg" alt="Day 5 - Jaipur Factory Meetings"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                        </div>
+                    </div>
+                    <!-- Right Content -->
+                    <div class="reveal-on-scroll flex flex-col justify-center">
+                        <span class="font-label-numeric text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 05</span>
+                        <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Jaipur Factory Floor Visits</h4>
+                        <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                            Travel to Jaipur for direct visits with vetted manufacturers, touring facility floors and meeting development and QA teams.
+                        </p>
+                        <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
+                    </div>
+                </div>
+
+                <!-- Day 6 (Right Image, Left Content) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <!-- Left Content -->
+                    <div class="reveal-on-scroll flex flex-col justify-center order-2 md:order-1">
+                        <span class="font-label-numeric text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 06</span>
+                        <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Jaipur Artisan Discovery</h4>
+                        <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                            Explore Jaipur’s artisan communities, block printing workshops, local fabric craft markets, and historical heritage sites.
+                        </p>
+                        <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
+                    </div>
+                    <!-- Right Image -->
+                    <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden order-1 md:order-2">
+                        <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="ilteray/day 6.jpeg" alt="Day 6 - Jaipur Discovery & Crafts"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Day 7 (Left Image, Right Content) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                    <!-- Left Image -->
+                    <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
+                        <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                            <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="ilteray/day 7.jpeg" alt="Day 7 - Wrap-Up & Departure"/>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                        </div>
+                    </div>
+                    <!-- Right Content -->
+                    <div class="reveal-on-scroll flex flex-col justify-center">
+                        <span class="font-label-numeric text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 07</span>
+                        <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Wrap-Up &amp; Departure</h4>
+                        <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                            Final debriefing, pre-shipment logistics planning, export consolidation review, and airport transfers for departure.
+                        </p>
+                        <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </div></div>
         
+        <!-- Jaipur-inspired geometric star divider -->
+        <div class="flex items-center justify-center my-16 opacity-75">
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+            <div class="mx-6 text-primary flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+                <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2C12 2 15 7 15 10C15 13 13 15 12 15C11 15 9 13 9 10C9 7 12 2 12 2Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 7 18 4 18C1 18 1 15 4 14C7 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 17 18 20 18C23 18 23 15 20 14C17 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                </svg>
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+            </div>
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+        </div>
+
         <!-- Continue to next section -->
-        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="2">
+        <div class="next-section-trigger py-10 mt-6 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="2">
             <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
             <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">Logistics &amp; Inclusions</h4>
             <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
                 <span class="material-symbols-outlined">expand_more</span>
             </div>
         </div>
-    </div>
 </section>
 
 <!-- Section 03: Logistics -->
@@ -716,68 +1028,122 @@
         <p class="font-label-numeric text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">03 / Logistics</p>
         <h2 class="font-display-lg text-display-lg mb-12">Logistics, Inclusions &amp; <span class="italic font-light">Pricing</span></h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-20 items-start">
-            <!-- Left Side: Inclusions & Exclusions -->
-            <div class="md:col-span-7 space-y-8">
-                <!-- What's Included -->
-                <div class="border border-outline-variant/30 p-8 rounded-2xl bg-surface-container-low shadow-sm">
-                    <h3 class="font-nav-item uppercase tracking-widest text-primary text-sm mb-6 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-primary">done_all</span> What's Included
-                    </h3>
-                    <ul class="space-y-4 font-body-md text-on-surface-variant">
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Airport pickup, transfer &amp; private ground transportation throughout India</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Premium heritage hotel &amp; boutique lodging accommodations</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Professionally guided factory floor tours &amp; direct artisan introductions</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> English-Hindi translation assistance and cultural bridge support</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-tertiary-container mt-0.5" style="font-size: 18px;">check_circle</span> Pre-trip sourcing consultations, luggage planning, and travel orientations</li>
-                    </ul>
-                </div>
+        <!-- Logistics Rebuilt Grid Layout -->
+        <div class="space-y-8 mb-20">
+            <!-- Top Row: What's Included (Left) & Pricing (Right) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
                 
-                <!-- What's Not Included -->
-                <div class="bg-surface-container border border-outline-variant/10 p-8 rounded-2xl shadow-sm">
-                    <h3 class="font-nav-item uppercase tracking-widest text-secondary text-sm mb-6 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-secondary">block</span> What's Not Included
-                    </h3>
-                    <ul class="space-y-4 font-body-md text-secondary">
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> International airfare to and from New Delhi</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Compulsory international travel &amp; medical insurance</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Passport fees &amp; Indian visa application costs</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Personal shopping budget, custom samples, and individual cargo shipping</li>
-                        <li class="flex items-start gap-3"><span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span> Most daily lunch &amp; dinner meals outside scheduled group dining events</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <!-- Right Side: Pricing & Visual Asset -->
-            <div class="md:col-span-5 space-y-8">
-                <!-- Pricing & Payment Card -->
-                <div class="bg-primary-container p-8 rounded-2xl text-on-primary shadow-xl relative overflow-hidden">
-                    <div class="absolute -right-16 -top-16 w-32 h-32 bg-white/5 rounded-full pointer-events-none"></div>
-                    <p class="font-label-numeric uppercase tracking-widest text-xs mb-2 opacity-75">Investment Details</p>
-                    <h3 class="font-display-lg text-2xl md:text-3xl mb-6">Consultation-Based Pricing</h3>
-                    <ul class="space-y-4 font-body-md mb-8 opacity-90 text-sm md:text-base leading-relaxed">
-                        <li>• <strong class="text-white">Discovery Call Pricing:</strong> Investment details are shared during your introductory discovery call to fit your business goals.</li>
-                        <li>• <strong class="text-white">Qualified Applicants:</strong> Receive full trip pricing and payment schedules immediately after application approval.</li>
-                        <li>• <strong class="text-white">Deposit Process:</strong> A refundable placement deposit is required to secure your slot after acceptance.</li>
-                        <li>• <strong class="text-white">Payment Schedule:</strong> Installment payment terms are available for early registrants.</li>
-                        <li>• <strong class="text-white">Cancellation Policy:</strong> Details regarding flexible cancellation and refund terms will be provided in your custom trip contract.</li>
-                    </ul>
-                    <div class="border-t border-white/20 pt-4 text-xs italic opacity-75">
-                        *Flexible business financing options may be discussed during your discovery call.
+                <!-- What's Included -->
+                <div class="border border-outline-variant/30 p-8 rounded-2xl bg-surface-container-low shadow-sm flex flex-col justify-between h-full relative overflow-hidden">
+                    <!-- Subtle Mughal inner border design -->
+                    <div class="absolute inset-3 border border-dashed border-primary/10 pointer-events-none rounded-xl"></div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="font-nav-item uppercase tracking-widest text-primary text-sm mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">done_all</span> What's Included
+                        </h3>
+                        <ul class="space-y-4 font-body-md text-on-surface-variant">
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 18px;">check_circle</span>
+                                <span class="leading-normal">Airport pickup, transfer &amp; private ground transportation throughout India</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 18px;">check_circle</span>
+                                <span class="leading-normal">Premium heritage hotel &amp; boutique lodging accommodations</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 18px;">check_circle</span>
+                                <span class="leading-normal">Professionally guided factory floor tours &amp; direct artisan introductions</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 18px;">check_circle</span>
+                                <span class="leading-normal">English-Hindi translation assistance and cultural bridge support</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 18px;">check_circle</span>
+                                <span class="leading-normal">Pre-trip sourcing consultations, luggage planning, and travel orientations</span>
+                            </li>
+                        </ul>
                     </div>
                 </div>
                 
-                <!-- Logistics Image -->
-                <div class="aspect-[4/3] overflow-hidden rounded-2xl shadow-lg relative group">
-                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="logistics_hotel_travel.png" alt="Boutique hotel accommodation and comfortable transportation during the India sourcing trip."/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>
-                    <p class="absolute bottom-4 left-4 text-white font-label-numeric text-xs uppercase tracking-widest">Comfort &amp; Logistics Vetted</p>
+                <!-- Pricing & Payment Card -->
+                <div class="bg-primary p-8 rounded-2xl text-on-primary shadow-xl flex flex-col justify-between h-full relative overflow-hidden">
+                    <!-- Subtle Mughal Geometry watermark stamp -->
+                    <div class="absolute -right-6 -top-6 select-none opacity-15 pointer-events-none transform -rotate-12 text-white">
+                        <svg class="w-32 h-32 text-white fill-none stroke-current" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="32" cy="32" r="28" stroke-width="0.75" stroke-dasharray="2 2" />
+                            <circle cx="32" cy="32" r="24" stroke-width="0.5" />
+                            <text x="32" y="34" font-family="Space Grotesk" font-size="3" text-anchor="middle" fill="currentColor" stroke="none" font-weight="700" letter-spacing="1">SOURCED</text>
+                            <text x="32" y="47" font-family="Space Grotesk" font-size="2.5" text-anchor="middle" fill="currentColor" stroke="none" letter-spacing="0.5">DIRECT</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="relative z-10">
+                        <p class="font-label-numeric uppercase tracking-widest text-[10px] text-gold mb-2 font-bold">Investment Details</p>
+                        <h3 class="font-display-lg text-2xl md:text-3xl mb-6 font-normal">Consultation-Based Pricing</h3>
+                        <ul class="space-y-4 font-body-md mb-8 opacity-90 text-sm md:text-base leading-relaxed">
+                            <li>• <strong class="text-white font-semibold">Discovery Call Pricing:</strong> Investment details are shared during your introductory discovery call to fit your business goals.</li>
+                            <li>• <strong class="text-white font-semibold">Qualified Applicants:</strong> Receive full trip pricing and payment schedules immediately after application approval.</li>
+                            <li>• <strong class="text-white font-semibold">Deposit Process:</strong> A refundable placement deposit is required to secure your slot after acceptance.</li>
+                            <li>• <strong class="text-white font-semibold">Payment Schedule:</strong> Installment payment terms are available for early registrants.</li>
+                            <li>• <strong class="text-white font-semibold">Cancellation Policy:</strong> Details regarding flexible cancellation and refund terms will be provided in your custom trip contract.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border-t border-white/20 pt-4 text-xs italic opacity-75 mt-auto relative z-10">
+                        *Flexible business financing options may be discussed during your discovery call.
+                    </div>
                 </div>
+            </div>
+
+            <!-- Bottom Row: What's Not Included -->
+            <div class="bg-surface-container border border-outline-variant/10 p-8 rounded-2xl shadow-sm w-full relative overflow-hidden">
+                <h3 class="font-nav-item uppercase tracking-widest text-secondary text-sm mb-6 flex items-center gap-2 relative z-10">
+                    <span class="material-symbols-outlined text-secondary">block</span> What's Not Included
+                </h3>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 font-body-md text-secondary relative z-10">
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span>
+                        <span>International airfare to and from New Delhi</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span>
+                        <span>Compulsory international travel &amp; medical insurance</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span>
+                        <span>Passport fees &amp; Indian visa application costs</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span>
+                        <span>Personal shopping budget, custom samples, and individual cargo shipping</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">cancel</span>
+                        <span>Most daily lunch &amp; dinner meals outside scheduled group dining events</span>
+                    </li>
+                </ul>
             </div>
         </div>
 
+        <!-- Jaipur-inspired geometric star divider -->
+        <div class="flex items-center justify-center my-16 opacity-75">
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+            <div class="mx-6 text-primary flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+                <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2C12 2 15 7 15 10C15 13 13 15 12 15C11 15 9 13 9 10C9 7 12 2 12 2Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 7 18 4 18C1 18 1 15 4 14C7 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 17 18 20 18C23 18 23 15 20 14C17 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                </svg>
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+            </div>
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+        </div>
+
         <!-- Continue to next section -->
-        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="3">
+        <div class="next-section-trigger py-10 mt-6 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="3">
             <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
             <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">Our Network</h4>
             <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
@@ -796,7 +1162,7 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-24 pb-16 border-b border-outline-variant/20">
             <div class="md:col-span-6 space-y-6">
                 <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight">Why Travel With <br/><span class="italic font-light">Leaf &amp; Loom</span>?</h2>
-                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                <p class="font-body-lg text-on-surface-variant leading-relaxed editorial-dropcap">
                     With over 42 years of dedicated experience in the gift and home décor industry, Leaf &amp; Loom serves as a trusted business and cultural bridge in India. 
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
@@ -819,72 +1185,133 @@
                 </div>
             </div>
             <div class="md:col-span-6">
-                <div class="aspect-[16/11] overflow-hidden rounded-2xl shadow-xl relative group">
-                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="sourcing_network_products.png" alt="A curation of premium textiles and craft products sourced through the Leaf & Loom network."/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                <div class="aspect-[16/11] heritage-image-frame rounded-t-[180px] rounded-b-2xl group">
+                    <div class="heritage-image-frame-inner rounded-t-[172px] rounded-b-xl w-full h-full">
+                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="sourcing_network_products.png" alt="A curation of premium textiles and craft products sourced through the Leaf & Loom network."/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Part 2 & 3 Grid: Who You'll Meet & Expected Outcomes -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start mb-24">
+        <!-- Part 2 & 3 Grid: Who You'll Meet & Expected Outcomes (Rebuilt & Aligned) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-24">
             <!-- Left Side: Who You'll Meet -->
-            <div class="lg:col-span-7 space-y-8">
-                <h3 class="font-headline-md text-headline-md">Who You'll Meet</h3>
-                <p class="font-body-md text-on-surface-variant mb-6">
-                    Connect directly with the decision-makers on factory floors and in artisan cooperatives. 
+            <div class="lg:col-span-7 space-y-6">
+                <h3 class="font-display-lg text-2xl md:text-3xl text-on-surface font-normal">Who You'll Meet</h3>
+                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                    Connect directly with the decision-makers on factory floors and in artisan cooperatives, bypassing middlemen for full transparency.
                 </p>
-                <div class="space-y-6">
-                    <div class="flex gap-5 p-5 bg-surface-container-low rounded-xl border border-outline-variant/20">
-                        <div class="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center shrink-0 shadow-sm">
-                            <span class="material-symbols-outlined text-primary">factory</span>
-                        </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Card 1 -->
+                    <div class="bg-surface-container-low border border-outline-variant/20 p-5 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between min-h-[145px]">
                         <div>
-                            <h4 class="font-nav-item uppercase text-sm font-bold text-on-surface mb-1">Vetted Manufacturers &amp; Exporters</h4>
-                            <p class="font-body-md text-secondary">Tour established production facilities certified for international social compliance and meet export management teams.</p>
+                            <span class="font-label-numeric text-[10px] text-primary uppercase tracking-[0.2em] block mb-2">Partner 01</span>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-1">Manufacturers</h4>
                         </div>
+                        <p class="font-body-md text-xs text-secondary leading-relaxed">
+                            Connect with scaled production facilities capable of meeting high volume and custom specification needs.
+                        </p>
                     </div>
-                    
-                    <div class="flex gap-5 p-5 bg-surface-container-low rounded-xl border border-outline-variant/20">
-                        <div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center shrink-0 shadow-sm">
-                            <span class="material-symbols-outlined text-tertiary">groups</span>
-                        </div>
+                    <!-- Card 2 -->
+                    <div class="bg-surface-container-low border border-outline-variant/20 p-5 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between min-h-[145px]">
                         <div>
-                            <h4 class="font-nav-item uppercase text-sm font-bold text-on-surface mb-1">Artisan Groups &amp; Handloom Cooperatives</h4>
-                            <p class="font-body-md text-secondary">Connect with craft guilds and small-scale custom workshops specializing in traditional wood carving, metalwork, and hand-weaving.</p>
+                            <span class="font-label-numeric text-[10px] text-primary uppercase tracking-[0.2em] block mb-2">Partner 02</span>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-1">Exporters</h4>
                         </div>
+                        <p class="font-body-md text-xs text-secondary leading-relaxed">
+                            Partner with licensed export houses familiar with international shipping standards, tariffs, and customs.
+                        </p>
                     </div>
-                    
-                    <div class="flex gap-5 p-5 bg-surface-container-low rounded-xl border border-outline-variant/20">
-                        <div class="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center shrink-0 shadow-sm">
-                            <span class="material-symbols-outlined text-secondary">eco</span>
-                        </div>
+                    <!-- Card 3 -->
+                    <div class="bg-surface-container-low border border-outline-variant/20 p-5 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between min-h-[145px]">
                         <div>
-                            <h4 class="font-nav-item uppercase text-sm font-bold text-on-surface mb-1">Sustainable &amp; Organic Suppliers</h4>
-                            <p class="font-body-md text-secondary">Establish ties with raw materials suppliers offering organic cotton, linen, natural vegetable dyes, and recycled materials.</p>
+                            <span class="font-label-numeric text-[10px] text-primary uppercase tracking-[0.2em] block mb-2">Partner 03</span>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-1">Artisan Groups</h4>
                         </div>
+                        <p class="font-body-md text-xs text-secondary leading-relaxed">
+                            Discover traditional craft cooperatives carrying on ancient hand-weaving, wood-carving, and block-printing legacies.
+                        </p>
+                    </div>
+                    <!-- Card 4 -->
+                    <div class="bg-surface-container-low border border-outline-variant/20 p-5 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between min-h-[145px]">
+                        <div>
+                            <span class="font-label-numeric text-[10px] text-primary uppercase tracking-[0.2em] block mb-2">Partner 04</span>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-1">Small Workshops</h4>
+                        </div>
+                        <p class="font-body-md text-xs text-secondary leading-relaxed">
+                            Source from boutique studios offering low minimum order quantities (MOQs) and flexible prototyping.
+                        </p>
+                    </div>
+                    <!-- Card 5 -->
+                    <div class="bg-surface-container-low border border-outline-variant/20 p-5 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between min-h-[145px]">
+                        <div>
+                            <span class="font-label-numeric text-[10px] text-primary uppercase tracking-[0.2em] block mb-2">Partner 05</span>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-1">Sustainable Suppliers</h4>
+                        </div>
+                        <p class="font-body-md text-xs text-secondary leading-relaxed">
+                            Align with suppliers certified in organic cotton, natural eco-friendly dyes, and ethical labor audits.
+                        </p>
+                    </div>
+                    <!-- Card 6 -->
+                    <div class="bg-surface-container-low border border-outline-variant/20 p-5 rounded-xl hover:border-primary/40 hover:shadow-sm transition-all flex flex-col justify-between min-h-[145px]">
+                        <div>
+                            <span class="font-label-numeric text-[10px] text-primary uppercase tracking-[0.2em] block mb-2">Partner 06</span>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-1">Product Development</h4>
+                        </div>
+                        <p class="font-body-md text-xs text-secondary leading-relaxed">
+                            Meet dedicated sampling teams to bring your sketches and product designs to life on-site.
+                        </p>
                     </div>
                 </div>
             </div>
             
             <!-- Right Side: Expected Outcomes -->
-            <div class="lg:col-span-5 bg-surface-container p-8 md:p-10 rounded-2xl border border-outline-variant/20 shadow-sm">
-                <h3 class="font-headline-md mb-6">Expected Outcomes</h3>
-                <p class="font-body-md text-on-surface-variant mb-8 leading-relaxed">
-                    Leave the trip with direct business relationships, expanded profit opportunities, and the sourcing confidence to manage production from thousands of miles away.
+            <div class="lg:col-span-5 space-y-6">
+                <h3 class="font-display-lg text-2xl md:text-3xl text-on-surface font-normal">Expected Outcomes</h3>
+                <p class="font-body-md text-on-surface-variant text-sm leading-relaxed mb-6">
+                    Leave the trip with direct business relationships, expanded profit opportunities, and the sourcing confidence to manage production.
                 </p>
-                <div class="space-y-6">
-                    <div class="border-b border-outline-variant/20 pb-4">
-                        <p class="font-display-lg text-primary text-4xl leading-none mb-1">150+</p>
-                        <p class="font-label-numeric uppercase text-xs tracking-wider text-secondary">Vetted Supplier Connections</p>
+                <div class="space-y-4">
+                    <!-- Metric Card 1 -->
+                    <div class="bg-surface-container p-5 rounded-xl border border-outline-variant/20 hover:border-primary/40 hover:shadow-sm transition-all flex items-center gap-4 min-h-[92px]">
+                        <span class="font-display-lg text-primary text-3xl font-bold tracking-tight shrink-0 w-12 text-center">01</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-0.5">Discover New Suppliers</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Access off-the-radar workshops and factories not listed online.</p>
+                        </div>
                     </div>
-                    <div class="border-b border-outline-variant/20 pb-4">
-                        <p class="font-display-lg text-primary text-4xl leading-none mb-1">100%</p>
-                        <p class="font-label-numeric uppercase text-xs tracking-wider text-secondary">Direct Sourcing, No Middlemen</p>
+                    <!-- Metric Card 2 -->
+                    <div class="bg-surface-container p-5 rounded-xl border border-outline-variant/20 hover:border-primary/40 hover:shadow-sm transition-all flex items-center gap-4 min-h-[92px]">
+                        <span class="font-display-lg text-primary text-3xl font-bold tracking-tight shrink-0 w-12 text-center">02</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-0.5">Build Direct Relationships</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Sit face-to-face with owners and managers, creating long-term trust.</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="font-display-lg text-primary text-4xl leading-none mb-1">Unlimited</p>
-                        <p class="font-label-numeric uppercase text-xs tracking-wider text-secondary">Bespoke Product Opportunities</p>
+                    <!-- Metric Card 3 -->
+                    <div class="bg-surface-container p-5 rounded-xl border border-outline-variant/20 hover:border-primary/40 hover:shadow-sm transition-all flex items-center gap-4 min-h-[92px]">
+                        <span class="font-display-lg text-primary text-3xl font-bold tracking-tight shrink-0 w-12 text-center">03</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-0.5">Learn Manufacturing Processes</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Step inside production floors to understand lead times and QA standards.</p>
+                        </div>
+                    </div>
+                    <!-- Metric Card 4 -->
+                    <div class="bg-surface-container p-5 rounded-xl border border-outline-variant/20 hover:border-primary/40 hover:shadow-sm transition-all flex items-center gap-4 min-h-[92px]">
+                        <span class="font-display-lg text-primary text-3xl font-bold tracking-tight shrink-0 w-12 text-center">04</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-0.5">Increase Profit Opportunities</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Eliminate brokers to lower unit costs and secure custom sample terms.</p>
+                        </div>
+                    </div>
+                    <!-- Metric Card 5 -->
+                    <div class="bg-surface-container p-5 rounded-xl border border-outline-variant/20 hover:border-primary/40 hover:shadow-sm transition-all flex items-center gap-4 min-h-[92px]">
+                        <span class="font-display-lg text-primary text-3xl font-bold tracking-tight shrink-0 w-12 text-center">05</span>
+                        <div>
+                            <h4 class="font-nav-item uppercase text-xs font-bold text-on-surface mb-0.5">Gain Sourcing Confidence</h4>
+                            <p class="font-body-md text-xs text-secondary leading-relaxed">Master logistics, compliance, and negotiations in the Indian market.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -909,8 +1336,23 @@
             </div>
         </div>
 
+        <!-- Jaipur-inspired geometric star divider -->
+        <div class="flex items-center justify-center my-16 opacity-75">
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+            <div class="mx-6 text-primary flex items-center gap-1.5">
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+                <svg class="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2C12 2 15 7 15 10C15 13 13 15 12 15C11 15 9 13 9 10C9 7 12 2 12 2Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 7 18 4 18C1 18 1 15 4 14C7 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                    <path d="M12 15C12 15 17 18 20 18C23 18 23 15 20 14C17 13 12 15 12 15Z" fill="currentColor" fill-opacity="0.15"/>
+                </svg>
+                <svg class="w-2.5 h-2.5 text-gold" viewBox="0 0 10 10" fill="currentColor"><circle cx="5" cy="5" r="3"/></svg>
+            </div>
+            <div class="h-[1px] bg-gradient-to-r from-transparent via-sandstone/60 to-transparent flex-grow"></div>
+        </div>
+
         <!-- Continue to next section -->
-        <div class="next-section-trigger border-t border-outline-variant py-10 mt-16 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="4">
+        <div class="next-section-trigger py-10 mt-6 text-center cursor-pointer hover:bg-primary/5 transition-all duration-300 group rounded-xl" data-next-target="4">
             <p class="font-label-numeric text-secondary uppercase tracking-[0.25em] text-xs group-hover:text-primary transition-colors">Continue reading</p>
             <h4 class="font-display-lg text-2xl mt-2 mb-2 text-on-surface group-hover:text-primary transition-colors">Join Us</h4>
             <div class="flex justify-center items-center gap-1 text-primary animate-bounce mt-2">
@@ -929,14 +1371,16 @@
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-20">
             <div class="md:col-span-7">
                 <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight mb-6">Apply &amp; Join the Sourcing Journey</h2>
-                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                <p class="font-body-lg text-on-surface-variant leading-relaxed editorial-dropcap">
                     Our groups are strictly limited to 8–12 brand owners and makers to ensure dedicated support and personalized introductions at every step. Submit an application today to begin your journey.
                 </p>
             </div>
             <div class="md:col-span-5">
-                <div class="aspect-[4/3] overflow-hidden rounded-2xl shadow-lg relative group">
-                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" src="application_planning_lifestyle.png" alt="A relaxed preparation session planning the sourcing route in India."/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                <div class="aspect-[4/3] heritage-image-frame rounded-t-[140px] rounded-b-2xl group">
+                    <div class="heritage-image-frame-inner rounded-t-[132px] rounded-b-xl w-full h-full">
+                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="application_planning_lifestyle.png" alt="A relaxed preparation session planning the sourcing route in India."/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1092,7 +1536,6 @@
         </div>
     </div>
 </section>
-</section>
 </div>
 </main>
 <script>
@@ -1106,6 +1549,17 @@
         
         let activeIndex = 0;
         let isTransitioning = false;
+
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        function checkItineraryReveals() {
+            const sectionHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < sectionHeight * 0.85 && rect.bottom > 0) {
+                    el.classList.add('revealed');
+                }
+            });
+        }
 
         // Position initial slider
         function updateSlider(index) {
@@ -1167,6 +1621,7 @@
                 // Small buffer for display: flex to register
                 requestAnimationFrame(() => {
                     nextSection.classList.add('active');
+                    setTimeout(checkItineraryReveals, 100);
                 });
 
                 activeIndex = nextIndex;
@@ -1417,6 +1872,9 @@
                     line.style.height = '0%';
                 }
             });
+
+            // Check itinerary reveals on scroll
+            checkItineraryReveals();
         });
 
         // Initial setup
