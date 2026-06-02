@@ -3,7 +3,7 @@
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Leaf &amp; Loom | India Sourcing Trip</title>
+<title>Elevation By Kim | SOURCING JOURNEY</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -347,6 +347,24 @@
         .faq-item.active .material-symbols-outlined {
             transform: rotate(180deg);
         }
+
+        /* ── Brand Name: premium editorial serif ── */
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+
+        /* Mobile-specific brand overrides */
+        @media (max-width: 767px) {
+            .brand-name-mobile {
+                font-size: 22px;
+                font-style: italic;
+                letter-spacing: -0.01em;
+            }
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -449,8 +467,8 @@
 <nav class="glass-sidebar hidden md:flex fixed left-8 top-8 bottom-8 w-[280px] z-50 flex-col py-10 px-8 justify-between transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
 <div class="relative">
 <div class="mb-12">
-<h1 class="font-display-lg text-headline-md tracking-tighter text-on-surface">Leaf <span class="font-heritage-title text-gold inline-block transform scale-110 select-none">&amp;</span> Loom</h1>
-<p class="font-heritage-serif text-label-numeric uppercase text-secondary tracking-widest mt-1">India Sourcing Trip</p>
+<h1 class="brand-name text-headline-md text-on-surface">Elevation By Kim</h1>
+<p class="font-heritage-serif text-label-numeric uppercase text-secondary tracking-widest mt-1">SOURCING JOURNEY</p>
 <div class="mt-4 flex items-center gap-2 border-t border-outline-variant/30 pt-3">
     <span class="text-[10px] font-nav-item uppercase tracking-widest text-secondary/60">Journey Phase</span>
     <span class="ml-auto font-heritage-serif text-xs text-primary-container">
@@ -483,25 +501,14 @@
 </a>
 </div>
 </div>
-    <!-- Handcrafted stamp-style micro graphic -->
-    <div class="flex justify-center my-6 select-none pointer-events-none">
-        <svg class="w-14 h-14 text-primary/30 fill-none stroke-current" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="32" cy="32" r="28" stroke-width="1" stroke-dasharray="2 2" />
-            <circle cx="32" cy="32" r="24" stroke-width="0.75" />
-            <path d="M32 16c0 0 5 6 5 9a5 5 0 0 1-10 0c0-3 5-9 5-9z" fill="currentColor" opacity="0.15" stroke-width="0.75" />
-            <path d="M20 38h24M22 41h20" stroke-width="0.75" />
-            <text x="32" y="34" font-family="Space Grotesk" font-size="3.5" text-anchor="middle" fill="currentColor" stroke="none" font-weight="700" letter-spacing="1">SOURCED</text>
-            <text x="32" y="47" font-family="Space Grotesk" font-size="3" text-anchor="middle" fill="currentColor" stroke="none" letter-spacing="0.5">DIRECT</text>
-        </svg>
-    </div>
 
     <button class="border border-black/10 font-nav-item text-nav-item py-4 px-6 uppercase tracking-widest hover:bg-black/5 transition-all duration-700 focus-visible:outline-primary-container focus-visible:outline-2">
         Apply Now
     </button>
 </nav>
 <!-- Mobile Top Bar -->
-<header class="flex md:hidden fixed top-0 w-full z-40 bg-white/40 backdrop-blur-md justify-between items-center px-margin_mobile py-6 border-b border-black/5">
-<h1 class="font-display-lg-mobile text-display-lg-mobile text-on-surface">Leaf <span class="font-heritage-title text-gold inline-block transform scale-110 select-none">&amp;</span> Loom</h1>
+<header class="flex md:hidden fixed top-0 w-full z-40 bg-white/40 backdrop-blur-md justify-between items-center px-margin_mobile py-3 border-b border-black/5">
+<h1 class="brand-name brand-name-mobile text-on-surface">Elevation By Kim</h1>
 <button class="font-nav-item text-nav-item text-primary-container uppercase">Apply</button>
 </header>
 <!-- Mobile Bottom Navigation -->
@@ -528,11 +535,11 @@
 </a>
 </nav>
 <!-- Main Content Canvas -->
-<main class="md:ml-[320px] px-margin_mobile md:px-margin_desktop min-h-screen">
+<main class="md:ml-[320px] px-margin_mobile md:px-margin_desktop min-h-screen pt-[60px] md:pt-0">
 <!-- Progress Indicator (Moved to Left Sidebar) -->
 <div class="section-container" id="main-scroll-container">
 <!-- Section 01: Introduction -->
-<section class="active flex-col pt-10 md:pt-16 pb-8 md:pb-12 overflow-y-auto custom-scrollbar" id="intro">
+<section class="active flex-col pt-4 md:pt-16 pb-8 md:pb-12 overflow-y-auto custom-scrollbar" id="intro">
     <div class="max-w-5xl w-full">
         <!-- Breadcrumb / Header Label -->
         <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-4">01 / Introduction</p>
@@ -1302,12 +1309,12 @@
     <div class="max-w-6xl w-full mx-auto">
         <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">04 / Our Network</p>
         
-        <!-- Part 1: Why Travel With Leaf & Loom -->
+        <!-- Part 1: Why Travel With Elevation By Kim -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-24 pb-16 border-b border-outline-variant/20">
             <div class="md:col-span-7 space-y-6">
-                <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight">Why Travel With <br/><span class="italic font-light">Leaf <span class="font-heritage-title text-gold inline-block transform scale-110 select-none">&amp;</span> Loom</span>?</h2>
+                <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight">Why Travel With <br/><span class="italic font-light">Elevation By Kim</span>?</h2>
                 <p class="font-body-lg text-on-surface-variant leading-relaxed editorial-dropcap">
-                    With over 42 years of dedicated experience in the gift and home décor industry, Leaf &amp; Loom serves as a trusted business and cultural bridge in India. 
+                    With over 42 years of dedicated experience in the gift and home décor industry, Elevation By Kim serves as a trusted business and cultural bridge in India. 
                 </p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
                     <div>
@@ -1335,7 +1342,7 @@
                 <!-- Image container -->
                 <div class="relative z-10 aspect-[3/4] heritage-image-frame rounded-t-[180px] rounded-b-2xl group">
                     <div class="heritage-image-frame-inner rounded-t-[172px] rounded-b-xl w-full h-full">
-                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" style="object-position: top center;" src="symbols/hero sections KIM.avif" alt="Kim - Leaf & Loom Founder"/>
+                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" style="object-position: top center;" src="symbols/hero sections KIM.avif" alt="Kim - Elevation By Kim Founder"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                     </div>
                 </div>
@@ -1494,7 +1501,7 @@
                 <div class="jharokha-clip bg-outline-variant/20 p-[1px] shadow-sm flex flex-col justify-between h-full">
                     <div class="jharokha-clip bg-surface-container-low p-8 flex flex-col justify-between h-full">
                         <p class="italic font-body-lg text-secondary leading-relaxed mb-6">
-                            "The access Leaf &amp; Loom provided was transformative. We found three new primary suppliers that we never would have discovered on our own or at trade shows."
+                            "The access Elevation By Kim provided was transformative. We found three new primary suppliers that we never would have discovered on our own or at trade shows."
                         </p>
                         <span class="block font-heritage-serif text-xs uppercase tracking-widest text-primary">— Sarah J., Brand Founder</span>
                     </div>
@@ -1643,7 +1650,7 @@
                     <div class="faq-content-wrapper overflow-hidden">
                         <div class="faq-content">
                             <p class="pb-4 pt-2 font-body-md text-secondary leading-relaxed pl-2">
-                                No prior sourcing experience is required. Leaf &amp; Loom provides guided assistance, translation, and consultations to help both beginners and experienced buyers navigate the process.
+                                No prior sourcing experience is required. Elevation By Kim provides guided assistance, translation, and consultations to help both beginners and experienced buyers navigate the process.
                             </p>
                         </div>
                     </div>
@@ -1769,7 +1776,7 @@
             
             <div class="border-t border-outline-variant/20 pt-8 max-w-md mx-auto">
                 <p class="font-heritage-serif text-secondary text-sm tracking-wider mb-2">test@gmail.com | +1 (234) 567-0000</p>
-                <p class="font-heritage-serif text-secondary/60 text-xs tracking-wider mb-4">@leafandloom | Leaf <span class="font-heritage-title text-gold inline-block transform scale-110 select-none">&amp;</span> Loom Sourcing Journey</p>
+                <p class="font-heritage-serif text-secondary/60 text-xs tracking-wider mb-4">@elevationbykim | Elevation By Kim Sourcing Journey</p>
                 <!-- Social Media Links -->
                 <div class="flex justify-center gap-6 mt-4">
                     <a href="#" class="text-secondary/60 hover:text-primary transition-all duration-300 flex items-center justify-center" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
