@@ -365,6 +365,86 @@
                 letter-spacing: -0.01em;
             }
         }
+
+        /* ── Mobile Apply Button ── */
+        @keyframes applyShimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position:  200% center; }
+        }
+
+        .mobile-apply-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 16px;
+            background-color: #823b18;
+            color: #FAF8F5;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 0.14em;
+            line-height: 1;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            overflow: hidden;
+            /* gold top-edge accent line */
+            box-shadow:
+                inset 0 2px 0 0 #C59B27,          /* top gold line */
+                0 2px 8px rgba(130, 59, 24, 0.35), /* warm drop shadow */
+                0 1px 2px rgba(0, 0, 0, 0.20);
+            transition:
+                background-color 0.25s ease,
+                box-shadow       0.25s ease,
+                transform        0.15s ease;
+        }
+
+        /* shimmer sweep overlay */
+        .mobile-apply-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                105deg,
+                transparent 35%,
+                rgba(255, 255, 255, 0.18) 50%,
+                transparent 65%
+            );
+            background-size: 200% 100%;
+            background-position: -200% center;
+            animation: applyShimmer 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .mobile-apply-btn:hover {
+            background-color: #6a2f12;
+            box-shadow:
+                inset 0 2px 0 0 #d4a82e,
+                0 4px 14px rgba(130, 59, 24, 0.45),
+                0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+
+        .mobile-apply-btn:active {
+            transform: translateY(1px) scale(0.97);
+            box-shadow:
+                inset 0 2px 0 0 #C59B27,
+                0 1px 4px rgba(130, 59, 24, 0.3);
+        }
+
+        /* arrow glyph */
+        .mobile-apply-btn .btn-arrow {
+            font-size: 9px;
+            opacity: 0.75;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            font-style: normal;
+        }
+
+        .mobile-apply-btn:hover .btn-arrow {
+            transform: translateX(3px);
+            opacity: 1;
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -509,7 +589,7 @@
 <!-- Mobile Top Bar -->
 <header class="flex md:hidden fixed top-0 w-full z-40 bg-white/40 backdrop-blur-md justify-between items-center px-margin_mobile py-3 border-b border-black/5">
 <h1 class="brand-name brand-name-mobile text-on-surface">Elevation By Kim</h1>
-<button class="font-nav-item text-nav-item text-primary-container uppercase">Apply</button>
+<button class="mobile-apply-btn">APPLY <span class="btn-arrow">&#8594;</span></button>
 </header>
 <!-- Mobile Bottom Navigation -->
 <nav class="fixed md:hidden bottom-4 left-margin_mobile right-margin_mobile z-50 bg-white/65 backdrop-blur-[14px] h-16 rounded-full border border-black/10 flex justify-around items-center px-6">
