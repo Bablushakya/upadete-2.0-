@@ -816,8 +816,8 @@
                     This is a professionally guided sourcing journey to India — built for business owners, makers, retailers, designers, and product brands who want to source directly but don't know where to start.
                 </p>
                 <div class="flex flex-col gap-3">
-                    <button class="bg-primary text-on-primary font-nav-item py-3 px-6 text-sm uppercase tracking-widest hover:bg-primary-container transition-all shadow-md hover:shadow-lg">Apply for the Next Trip</button>
-                    <button class="border border-outline text-on-surface-variant font-nav-item py-3 px-6 text-sm uppercase tracking-widest hover:bg-surface-container transition-all">Schedule a Discovery Call</button>
+                    <button id="hero-apply-btn" class="bg-primary text-on-primary font-nav-item py-3 px-6 text-sm uppercase tracking-widest hover:bg-primary-container transition-all shadow-md hover:shadow-lg">Apply for the Next Trip</button>
+                    <button id="hero-call-btn" class="border border-outline text-on-surface-variant font-nav-item py-3 px-6 text-sm uppercase tracking-widest hover:bg-surface-container transition-all">Schedule a Discovery Call</button>
                 </div>
             </div>
         </div>
@@ -1645,14 +1645,12 @@
                 <!-- Social Media Links -->
                 <div class="flex justify-center gap-6 mt-4 mb-10">
                     <!-- TODO: Replace # with real profile URLs -->
-                    <a href="#" class="text-secondary/60 hover:text-primary transition-all duration-300 flex items-center justify-center" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/ElevationbyKim#" class="text-secondary/60 hover:text-primary transition-all duration-300 flex items-center justify-center" aria-label="facebook" target="_blank" rel="noopener noreferrer">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <rect x="2" y="9" width="4" height="12" stroke-linecap="round" stroke-linejoin="round"></rect>
-                            <circle cx="4" cy="4" r="2" stroke-linecap="round" stroke-linejoin="round"></circle>
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                     </a>
-                    <a href="#" class="text-secondary/60 hover:text-primary transition-all duration-300 flex items-center justify-center" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.instagram.com/elevationbykim/" class="text-secondary/60 hover:text-primary transition-all duration-300 flex items-center justify-center" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-linecap="round" stroke-linejoin="round"></rect>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -2031,8 +2029,410 @@
             });
         });
 
+        // ── Form Modals & LocalStorage Implementation ──
+
+        // Modal Element Selectors
+        const applyModal = document.getElementById('apply-modal');
+        const callModal = document.getElementById('call-modal');
+        const applyCard = applyModal.querySelector('.transform');
+        const callCard = callModal.querySelector('.transform');
+
+        // Open Modals Function
+        function openModal(modal, card) {
+            modal.classList.remove('pointer-events-none', 'opacity-0');
+            modal.classList.add('opacity-100');
+            card.classList.remove('scale-95', 'opacity-0');
+            card.classList.add('scale-100', 'opacity-100');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        // Close Modals Function
+        function closeModal(modal, card) {
+            card.classList.remove('scale-100', 'opacity-100');
+            card.classList.add('scale-95', 'opacity-0');
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        // Bind Triggers
+        const applyButtons = [
+            document.getElementById('hero-apply-btn'),
+            document.querySelector('.sidebar-cta'),
+            document.querySelector('.mobile-apply-btn')
+        ].filter(Boolean);
+
+        applyButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(applyModal, applyCard);
+            });
+        });
+
+        const callButtons = [
+            document.getElementById('hero-call-btn')
+        ].filter(Boolean);
+
+        callButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal(callModal, callCard);
+            });
+        });
+
+        // Close/Cancel buttons
+        document.getElementById('close-apply-modal').addEventListener('click', () => closeModal(applyModal, applyCard));
+        document.getElementById('cancel-apply').addEventListener('click', () => closeModal(applyModal, applyCard));
+
+        document.getElementById('close-call-modal').addEventListener('click', () => closeModal(callModal, callCard));
+        document.getElementById('cancel-call').addEventListener('click', () => closeModal(callModal, callCard));
+
+        // Close on background click
+        applyModal.addEventListener('click', (e) => {
+            if (e.target === applyModal) closeModal(applyModal, applyCard);
+        });
+        callModal.addEventListener('click', (e) => {
+            if (e.target === callModal) closeModal(callModal, callCard);
+        });
+
+        // Toast Notification System
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            toast.className = `flex items-center gap-3 bg-white text-on-surface border border-outline-variant/30 px-6 py-4 rounded-xl shadow-2xl transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto max-w-sm`;
+            
+            let icon = `<span class="material-symbols-outlined text-gold">check_circle</span>`;
+            if (type === 'error') {
+                icon = `<span class="material-symbols-outlined text-error">error</span>`;
+            }
+            
+            toast.innerHTML = `
+                ${icon}
+                <div class="flex-grow">
+                    <p class="font-body-md text-sm leading-snug">${message}</p>
+                </div>
+                <button class="text-secondary/40 hover:text-primary transition-colors focus:outline-none ml-2">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+            `;
+            
+            toast.querySelector('button').addEventListener('click', () => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            });
+            
+            container.appendChild(toast);
+            
+            requestAnimationFrame(() => {
+                toast.classList.remove('opacity-0', 'translate-y-4');
+            });
+            
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.add('opacity-0', 'translate-y-2');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 5000);
+        }
+
+        // Form Validation & Submission
+        const applyForm = document.getElementById('apply-form');
+        const callForm = document.getElementById('call-form');
+
+        function validateInput(input, errorSpan) {
+            if (!input.value.trim()) {
+                input.classList.add('border-error');
+                errorSpan.classList.remove('hidden');
+                return false;
+            } else {
+                input.classList.remove('border-error');
+                errorSpan.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateSelect(select, errorSpan) {
+            if (!select.value) {
+                select.classList.add('border-error');
+                errorSpan.classList.remove('hidden');
+                return false;
+            } else {
+                select.classList.remove('border-error');
+                errorSpan.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateEmail(input, errorSpan) {
+            const val = input.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!val || !emailRegex.test(val)) {
+                input.classList.add('border-error');
+                errorSpan.classList.remove('hidden');
+                return false;
+            } else {
+                input.classList.remove('border-error');
+                errorSpan.classList.add('hidden');
+                return true;
+            }
+        }
+
+        applyForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('apply-name');
+            const emailInput = document.getElementById('apply-email');
+            const phoneInput = document.getElementById('apply-phone');
+            const businessSelect = document.getElementById('apply-business-type');
+            
+            const nameErr = nameInput.nextElementSibling;
+            const emailErr = emailInput.nextElementSibling;
+            const phoneErr = phoneInput.nextElementSibling;
+            const businessErr = businessSelect.nextElementSibling;
+            
+            let isValid = true;
+            
+            if (!validateInput(nameInput, nameErr)) isValid = false;
+            if (!validateEmail(emailInput, emailErr)) isValid = false;
+            if (!validateInput(phoneInput, phoneErr)) isValid = false;
+            if (!validateSelect(businessSelect, businessErr)) isValid = false;
+            
+            if (!isValid) return;
+            
+            const formData = {
+                id: Date.now(),
+                name: nameInput.value.trim(),
+                email: emailInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                business_type: businessSelect.value,
+                company_name: document.getElementById('apply-company').value.trim(),
+                annual_revenue: document.getElementById('apply-revenue').value,
+                sourcing_experience: document.getElementById('apply-experience').value,
+                goals: document.getElementById('apply-goals').value.trim(),
+                hearing_from: document.getElementById('apply-hearing').value.trim(),
+                created_at: new Date().toISOString()
+            };
+            
+            const applications = JSON.parse(localStorage.getItem('applications') || '[]');
+            applications.unshift(formData);
+            localStorage.setItem('applications', JSON.stringify(applications));
+            
+            applyForm.reset();
+            closeModal(applyModal, applyCard);
+            showToast('Your trip application was submitted successfully! Kim will review it shortly.');
+        });
+
+        callForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('call-name');
+            const emailInput = document.getElementById('call-email');
+            const phoneInput = document.getElementById('call-phone');
+            const dateInput = document.getElementById('call-date');
+            const timeSelect = document.getElementById('call-time');
+            
+            const nameErr = nameInput.nextElementSibling;
+            const emailErr = emailInput.nextElementSibling;
+            const phoneErr = phoneInput.nextElementSibling;
+            const dateErr = dateInput.nextElementSibling;
+            const timeErr = timeSelect.nextElementSibling;
+            
+            let isValid = true;
+            
+            if (!validateInput(nameInput, nameErr)) isValid = false;
+            if (!validateEmail(emailInput, emailErr)) isValid = false;
+            if (!validateInput(phoneInput, phoneErr)) isValid = false;
+            if (!validateInput(dateInput, dateErr)) isValid = false;
+            if (!validateSelect(timeSelect, timeErr)) isValid = false;
+            
+            if (!isValid) return;
+            
+            const formData = {
+                id: Date.now(),
+                name: nameInput.value.trim(),
+                email: emailInput.value.trim(),
+                phone: phoneInput.value.trim(),
+                company_name: document.getElementById('call-company').value.trim(),
+                preferred_date: dateInput.value,
+                preferred_time: timeSelect.value,
+                questions: document.getElementById('call-questions').value.trim(),
+                created_at: new Date().toISOString()
+            };
+            
+            const discoveryCalls = JSON.parse(localStorage.getItem('discovery_calls') || '[]');
+            discoveryCalls.unshift(formData);
+            localStorage.setItem('discovery_calls', JSON.stringify(discoveryCalls));
+            
+            callForm.reset();
+            closeModal(callModal, callCard);
+            showToast('Your discovery call was scheduled successfully! Check your inbox soon.');
+        });
+
         // Initial setup
         updateSlider(0);
     });
 </script>
+
+<!-- ── TRIP APPLICATION MODAL ── -->
+<div id="apply-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+    <div class="bg-surface rounded-t-[40px] rounded-b-2xl border border-outline-variant/30 shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8 md:p-10 relative transform scale-95 opacity-0 transition-all duration-300 custom-scrollbar">
+        <button id="close-apply-modal" class="absolute top-6 right-6 text-secondary/60 hover:text-primary transition-colors focus:outline-none">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <div class="flex justify-center mb-6">
+            <svg class="w-12 h-6 text-primary/10" viewBox="0 0 48 24" fill="currentColor">
+                <path d="M24,0 C12,0 0,16 0,24 L48,24 C48,16 36,0 24,0 Z"/>
+            </svg>
+        </div>
+        <div class="text-center mb-8">
+            <h3 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-2 font-normal">Apply for the Journey</h3>
+            <p class="font-body-md text-sm text-on-surface-variant">Complete your application for a limited spot on the India Sourcing Trip.</p>
+        </div>
+        <form id="apply-form" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-name">Full Name <span class="text-primary">*</span></label>
+                    <input type="text" id="apply-name" name="name" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="Your full name"/>
+                    <span class="error-msg text-xs text-error mt-1 hidden">Please enter your name</span>
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-email">Email Address <span class="text-primary">*</span></label>
+                    <input type="email" id="apply-email" name="email" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="you@example.com"/>
+                    <span class="error-msg text-xs text-error mt-1 hidden">Please enter a valid email</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-phone">Phone Number <span class="text-primary">*</span></label>
+                    <input type="tel" id="apply-phone" name="phone" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="+1 (555) 000-0000"/>
+                    <span class="error-msg text-xs text-error mt-1 hidden">Please enter your phone number</span>
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-business-type">Business Type <span class="text-primary">*</span></label>
+                    <select id="apply-business-type" name="businessType" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm">
+                        <option value="" disabled selected>Select business type</option>
+                        <option value="Brand Founder">Brand Founder</option>
+                        <option value="Boutique Owner">Boutique Owner</option>
+                        <option value="Interior Designer">Interior Designer</option>
+                        <option value="Artisan / Maker">Artisan / Maker</option>
+                        <option value="E-commerce Retailer">E-commerce Retailer</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <span class="error-msg text-xs text-error mt-1 hidden">Please select a business type</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-company">Company Name</label>
+                    <input type="text" id="apply-company" name="companyName" class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="Your business name"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-revenue">Annual Revenue</label>
+                    <select id="apply-revenue" name="annualRevenue" class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm">
+                        <option value="" disabled selected>Select revenue range</option>
+                        <option value="Under $100K">Under $100K</option>
+                        <option value="$100K - $500K">$100K - $500K</option>
+                        <option value="$500K - $1M">$500K - $1M</option>
+                        <option value="Over $1M">Over $1M</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-experience">Sourcing Experience</label>
+                    <select id="apply-experience" name="sourcingExperience" class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm">
+                        <option value="" disabled selected>Select experience level</option>
+                        <option value="No Experience (Beginner)">No Experience (Beginner)</option>
+                        <option value="Some Sourcing Experience">Some Sourcing Experience</option>
+                        <option value="Experienced Importer">Experienced Importer</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-hearing">How did you hear about us?</label>
+                    <input type="text" id="apply-hearing" name="hearingFrom" class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="Instagram, friend, web search..."/>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="apply-goals">What are your sourcing goals & requirements?</label>
+                <textarea id="apply-goals" name="goals" rows="3" class="border border-outline/30 focus:border-primary focus:ring-0 bg-transparent p-3 outline-none rounded-lg transition-all text-on-surface text-sm resize-none custom-scrollbar" placeholder="Describe the products, materials, or artisan networks you want to connect with..."></textarea>
+            </div>
+            <div class="flex gap-4 pt-4 justify-end">
+                <button type="button" id="cancel-apply" class="border border-outline/40 text-on-surface-variant font-nav-item text-xs py-3 px-6 uppercase tracking-wider hover:bg-surface-container transition-all">Cancel</button>
+                <button type="submit" class="bg-primary text-on-primary font-nav-item text-xs py-3 px-8 uppercase tracking-widest hover:bg-primary-container transition-all shadow-md hover:shadow-lg">Submit Application</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ── DISCOVERY CALL MODAL ── -->
+<div id="call-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+    <div class="bg-surface rounded-t-[40px] rounded-b-2xl border border-outline-variant/30 shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto p-8 md:p-10 relative transform scale-95 opacity-0 transition-all duration-300 custom-scrollbar">
+        <button id="close-call-modal" class="absolute top-6 right-6 text-secondary/60 hover:text-primary transition-colors focus:outline-none">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
+        <div class="flex justify-center mb-6">
+            <svg class="w-12 h-6 text-primary/10" viewBox="0 0 48 24" fill="currentColor">
+                <path d="M24,0 C12,0 0,16 0,24 L48,24 C48,16 36,0 24,0 Z"/>
+            </svg>
+        </div>
+        <div class="text-center mb-8">
+            <h3 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-2 font-normal">Schedule a Sourcing Consultation</h3>
+            <p class="font-body-md text-sm text-on-surface-variant">Book a quick 1-on-1 discovery call with Kim to discuss your sourcing goals.</p>
+        </div>
+        <form id="call-form" class="space-y-6">
+            <div class="flex flex-col">
+                <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="call-name">Full Name <span class="text-primary">*</span></label>
+                <input type="text" id="call-name" name="name" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="Your name"/>
+                <span class="error-msg text-xs text-error mt-1 hidden">Please enter your name</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="call-email">Email Address <span class="text-primary">*</span></label>
+                    <input type="email" id="call-email" name="email" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="you@example.com"/>
+                    <span class="error-msg text-xs text-error mt-1 hidden">Please enter a valid email</span>
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="call-phone">Phone Number <span class="text-primary">*</span></label>
+                    <input type="tel" id="call-phone" name="phone" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="Your phone number"/>
+                    <span class="error-msg text-xs text-error mt-1 hidden">Please enter your phone number</span>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="call-company">Company Name</label>
+                    <input type="text" id="call-company" name="companyName" class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm" placeholder="Your business name"/>
+                </div>
+                <div class="flex flex-col">
+                    <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="call-date">Preferred Date <span class="text-primary">*</span></label>
+                    <input type="date" id="call-date" name="preferredDate" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm"/>
+                    <span class="error-msg text-xs text-error mt-1 hidden">Please select a date</span>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="call-time">Preferred Time <span class="text-primary">*</span></label>
+                <select id="call-time" name="preferredTime" required class="border-b border-outline/30 focus:border-primary focus:ring-0 bg-transparent py-2 outline-none transition-all text-on-surface text-sm">
+                    <option value="" disabled selected>Select a time range</option>
+                    <option value="Morning (9:00 AM - 12:00 PM)">Morning (9:00 AM - 12:00 PM)</option>
+                    <option value="Afternoon (12:00 PM - 4:00 PM)">Afternoon (12:00 PM - 4:00 PM)</option>
+                    <option value="Evening (4:00 PM - 7:00 PM)">Evening (4:00 PM - 7:00 PM)</option>
+                </select>
+                <span class="error-msg text-xs text-error mt-1 hidden">Please select a time</span>
+            </div>
+            <div class="flex flex-col">
+                <label class="font-nav-item text-xs uppercase tracking-wider text-secondary mb-2" for="call-questions">Any specific questions or details?</label>
+                <textarea id="call-questions" name="questions" rows="3" class="border border-outline/30 focus:border-primary focus:ring-0 bg-transparent p-3 outline-none rounded-lg transition-all text-on-surface text-sm resize-none custom-scrollbar" placeholder="How can Kim help you on this call?..."></textarea>
+            </div>
+            <div class="flex gap-4 pt-4 justify-end">
+                <button type="button" id="cancel-call" class="border border-outline/40 text-on-surface-variant font-nav-item text-xs py-3 px-6 uppercase tracking-wider hover:bg-surface-container transition-all">Cancel</button>
+                <button type="submit" class="bg-primary text-on-primary font-nav-item text-xs py-3 px-8 uppercase tracking-widest hover:bg-primary-container transition-all shadow-md hover:shadow-lg">Schedule Call</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ── TOAST CONTAINER ── -->
+<div id="toast-container" class="fixed bottom-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
 </body></html>
