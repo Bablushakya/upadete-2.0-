@@ -1621,29 +1621,39 @@
 </section>
 
 <!-- Section 05: Join Us -->
-<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="collection">
+<section class="flex-col py-10 overflow-y-auto custom-scrollbar" id="collection">
     <div class="max-w-5xl w-full mx-auto">
-        <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">05 / Join Us</p>
-
+        <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-4">05 / Join Us</p>
+ 
         <!-- Single elegant entry point -->
-        <div class="mb-16 pb-12 border-b border-outline-variant/30">
-            <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight mb-5">Your journey <span class="italic font-light">begins here.</span></h2>
-            <p class="font-body-lg text-on-surface-variant leading-relaxed max-w-2xl mb-8">
-                Apply to join a small, guided sourcing journey to India — designed for business owners, makers, and product brands ready to source with confidence. Spots are limited to 8–12 participants per trip.
-            </p>
-            
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-center mb-8 pb-6 border-b border-outline-variant/30">
+            <div class="md:col-span-7 space-y-4">
+                <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight mb-3">Your journey <span class="italic font-light">begins here.</span></h2>
+                <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    Apply to join a small, guided sourcing journey to India — designed for business owners, makers, and product brands ready to source with confidence. Spots are limited to 8–12 participants per trip.
+                </p>
+            </div>
+            <div class="md:col-span-5 relative">
+                <!-- Heritage pattern backdrop element (offset to bottom-right) -->
+                <div class="absolute inset-0 translate-x-2 translate-y-2 md:translate-x-3 md:translate-y-3 rounded-t-[140px] md:rounded-t-[160px] rounded-b-2xl opacity-75 heritage-backdrop-pattern pointer-events-none" style="z-index: 0;"></div>
+                
+                <!-- Image container -->
+                <div class="relative z-10 aspect-[4/3] heritage-image-frame rounded-t-[140px] md:rounded-t-[160px] rounded-b-2xl group">
+                    <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[152px] rounded-b-xl w-full h-full">
+                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" loading="lazy" style="object-position: center 15%;" src="kim images/group-image-with-kim.jpeg" alt="Elevation by Kim sourcing journey group"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                    </div>
+                </div>
+            </div>
         </div>
-
+ 
         <!-- FAQ Section -->
         
         <!-- Final contact & social -->
-        <div class="text-center pb-8 pt-12 border-t border-outline-variant/30">
+        <div class="text-center pb-4 pt-6 border-t border-outline-variant/30">
             <div class="max-w-md mx-auto">
-                <!-- TODO: Replace with Kim's real email, phone, and social handles before going live -->
-                <p class="font-heritage-serif text-secondary text-sm tracking-wider mb-1">hello@elevationbykim.com | <!-- TODO: add phone number --></p>
-                <p class="font-heritage-serif text-secondary/60 text-xs tracking-wider mb-4">@elevationbykim &nbsp;&middot;&nbsp; Elevation By Kim Sourcing Journey</p>
                 <!-- Social Media Links -->
-                <div class="flex justify-center gap-6 mt-4 mb-10">
+                <div class="flex justify-center gap-6 mb-4">
                     <!-- TODO: Replace # with real profile URLs -->
                     <a href="https://www.facebook.com/ElevationbyKim#" class="text-secondary/60 hover:text-primary transition-all duration-300 flex items-center justify-center" aria-label="facebook" target="_blank" rel="noopener noreferrer">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -1664,6 +1674,11 @@
                         </svg>
                     </a>
                 </div>
+                
+                <!-- Contact info -->
+                <p class="font-heritage-serif text-secondary text-sm tracking-wider mb-1">hello@elevationbykim.com | <!-- TODO: add phone number --></p>
+                <p class="font-heritage-serif text-secondary/60 text-xs tracking-wider mb-4">@elevationbykim &nbsp;&middot;&nbsp; Elevation By Kim Sourcing Journey</p>
+                
                 <!-- Copyright closing stamp -->
                 <p class="font-heritage-serif text-secondary/40 text-[11px] tracking-widest uppercase">&copy; 2026 Elevation By Kim &nbsp;&middot;&nbsp; All rights reserved</p>
             </div>
