@@ -9,17 +9,19 @@
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Elevation By Kim | India Sourcing Journey"/>
 <meta property="og:description" content="A guided sourcing trip to India for business owners, makers, retailers, and product brands. Small groups. Real connections. Confidence from day one."/>
-<meta property="og:image" content="kim images/kim image india style.jpeg"/>
+<meta property="og:image" content="kim images/kim-image-india-style.jpeg"/>
 <meta property="og:locale" content="en_US"/>
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Elevation By Kim | India Sourcing Journey"/>
 <meta name="twitter:description" content="A guided sourcing trip to India for business owners, makers, retailers, and product brands. Small groups. Real connections."/>
-<meta name="twitter:image" content="kim images/kim image india style.jpeg"/>
+<meta name="twitter:image" content="kim images/kim-image-india-style.jpeg"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Space+Grotesk:wght@300..700&amp;family=Kurale&amp;family=Yatra+One&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="preload" as="image" href="symbols/hero-image.jpeg" fetchpriority="high"/>
+<link rel="preload" as="image" href="symbols/trade-show-and-sourcing-connections.jpeg" fetchpriority="high"/>
 <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
@@ -30,6 +32,7 @@
             position: relative;
             width: 100%;
             height: 100vh;
+            height: 100dvh;
             overflow: hidden;
         }
 
@@ -221,39 +224,40 @@
 
         .experience-sticky-container {
             position: sticky;
-            top: 0;
+            top: 60px; /* Aligned below the mobile header */
             left: 0;
             width: 100%;
-            /* clamp: min 580px so content never clips on short laptop screens (13") */
-            height: clamp(580px, 75vh, 90vh);
+            height: calc(100dvh - 140px); /* Fit within remaining screen space */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            gap: 2rem;
+            gap: 1.5rem;
             overflow: hidden;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
         }
 
         .experience-visual-col {
             width: 100%;
-            height: 30vh;
+            height: 40%; /* 40% of sticky container height */
+            flex-shrink: 0;
             position: relative;
             overflow: hidden;
-            border-top-left-radius: 160px;
-            border-top-right-radius: 160px;
+            border-top-left-radius: 120px;
+            border-top-right-radius: 120px;
             border-bottom-left-radius: 16px;
             border-bottom-right-radius: 16px;
-            box-shadow: 0 25px 50px -12px rgba(130, 59, 24, 0.15);
+            box-shadow: 0 15px 30px -10px rgba(130, 59, 24, 0.15);
             background-color: #FEF0EC;
-            padding: 8px;
+            padding: 6px;
             border: 1px solid rgba(197, 155, 39, 0.20);
         }
 
         .experience-narrative-col {
             width: 100%;
-            height: 35vh;
+            height: 50%; /* 50% of sticky container height */
+            flex-grow: 1;
             display: flex;
             position: relative;
             padding-right: 1rem;
@@ -261,12 +265,19 @@
 
         @media (min-width: 768px) {
             .experience-sticky-container {
+                top: 0;
+                height: clamp(580px, 75vh, 90vh);
                 flex-direction: row;
                 gap: 4rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
             }
             .experience-visual-col {
                 width: 60%;
                 height: clamp(440px, 72vh, 78vh);
+                border-top-left-radius: 160px;
+                border-top-right-radius: 160px;
+                padding: 8px;
             }
             .experience-narrative-col {
                 width: 40%;
@@ -371,26 +382,17 @@
         }
 
         .heritage-image-filter {
-            filter: brightness(1.05) saturate(1.15) contrast(1.05);
-            transition: filter 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .heritage-image-filter:hover {
-            filter: brightness(1.08) saturate(1.20) contrast(1.08);
-        }
-
-        /* 4K/HD Quality Enhancement for Heritage Section Images */
+        /* Standard rendering for Heritage Section Images */
         img.heritage-image-filter {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
             transform: translateZ(0);
             will-change: transform;
-            filter: contrast(1.15) saturate(1.2) brightness(1.05) drop-shadow(0 4px 6px rgba(0,0,0,0.05));
         }
 
         .group:hover img.heritage-image-filter {
             transform: scale(1.05) translateZ(0);
-            filter: contrast(1.18) saturate(1.25) brightness(1.08) drop-shadow(0 6px 10px rgba(0,0,0,0.08));
         }
 
         /* Scroll reveal system for Itinerary */
@@ -789,7 +791,7 @@
 <!-- Progress Indicator (Moved to Left Sidebar) -->
 <div class="section-container" id="main-scroll-container">
 <!-- Section 01: Introduction -->
-<section class="active flex-col pt-4 md:pt-16 pb-8 md:pb-12 overflow-y-auto custom-scrollbar" id="intro">
+<section class="active flex-col pt-24 md:pt-16 pb-32 md:pb-12 overflow-y-auto custom-scrollbar" id="intro">
     <div class="max-w-5xl w-full">
         <!-- Breadcrumb / Header Label -->
         <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-4">01 / Introduction</p>
@@ -806,7 +808,7 @@
             <!-- HERO IMAGE PLACEHOLDER — swap src below when Kim selects the final image -->
             <div class="md:col-span-7 max-h-[280px] md:max-h-[320px] lg:max-h-[360px] aspect-[16/10] heritage-image-frame rounded-t-[180px] rounded-b-2xl group relative overflow-hidden" style="border: none; box-shadow: none; padding: 0;">
                 <div class="heritage-image-frame-inner rounded-t-[172px] rounded-b-xl w-full h-full">
-                    <img class="parallax-img w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 heritage-image-filter" loading="lazy" alt="Kim riding a traditional Indian carriage" src="kim images/kim-travel-in-elephants.jpeg"/>
+                    <img class="parallax-img w-full h-full object-cover transition-all duration-1000 group-hover:scale-105 heritage-image-filter" fetchpriority="high" alt="Kim riding a traditional Indian carriage" src="symbols/hero-image.jpeg"/>
                     <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                 </div>
             </div>
@@ -1044,18 +1046,18 @@
 </section>
 
 <!-- Section 02: The Experience -->
-<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="workshop">
+<section class="flex-col pt-16 pb-32 md:py-20 overflow-y-auto custom-scrollbar" id="workshop">
     <div class="experience-scroll-track" id="experience-scroll-track">
         <!-- Sticky Storytelling Container -->
         <div class="experience-sticky-container">
             <!-- Visual Column (70-80% visual focus on desktop) -->
             <!-- Experience images reordered: 1=Tradeshow, 2=Factory Tours, 3=Local Markets, 4=Cultural Immersion -->
             <div class="experience-visual-col">
-                <img class="experience-image active heritage-image-filter" loading="lazy" style="object-position: center top;" src="new image kim\IMG_3276.JPG.jpeg" alt="Visitors at India Exports booth at IHGF Delhi Fair trade show" />
+                <img class="experience-image active heritage-image-filter" fetchpriority="high" style="object-position: center top;" src="symbols/trade-show-and-sourcing-connections.jpeg" alt="Visitors at India Exports booth at IHGF Delhi Fair trade show" />
                 <img class="experience-image heritage-image-filter" loading="lazy" style="object-position: center 30%;" src="kim images/local-image-with-workers.jpeg" alt="Indian artisan at stone carving workshop" />
-                <img class="experience-image heritage-image-filter" loading="lazy" style="object-position: center 20%;" src="new image kim\IMG_3279.WEBP" alt="Handcrafted products displayed in Indian market" />
+                <img class="experience-image heritage-image-filter" loading="lazy" style="object-position: center 20%;" src="new image kim/IMG_3279.WEBP" alt="Handcrafted products displayed in Indian market" />
                 <!-- Replaced 7.5MB AI image with mahnde.jpeg (117KB) — henna is perfect for Cultural Immersion -->
-                <img class="experience-image heritage-image-filter" loading="lazy" style="object-fit: cover; object-position: center center;" src="kim images\gemini-generated-image.png" alt="Intricate henna mehndi design on hands, celebrating Indian cultural tradition" />
+                <img class="experience-image heritage-image-filter" loading="lazy" style="object-fit: cover; object-position: center center;" src="symbols/cultural-and-immersion.jpeg" alt="Intricate henna mehndi design on hands, celebrating Indian cultural tradition" />
             </div>
             <!-- Mobile-only scroll hint: tells users to scroll within this section -->
             <div class="experience-scroll-hint md:hidden">
@@ -1189,54 +1191,52 @@
                 
                 <!-- Storytelling Itinerary Column Grid -->
                 <div class="space-y-10 md:space-y-16 relative z-10 px-2 md:px-6">
-                    <!-- Day 1 & Day 2 Dual Row Layout -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
-        <!-- Left column: Day 1 Image then Day 2 Content -->
-        <div class="flex flex-col gap-10 md:gap-16">
-            <!-- Day 1 Image -->
-            <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
-                <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
-                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="itinerary/day-01.jpeg" alt="Day 1 - Arrival and Welcome"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-                </div>
-            </div>
-            <!-- Day 2 Content -->
-            <div class="reveal-on-scroll flex flex-col justify-center min-h-[220px]">
-                <span class="font-heritage-serif text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 02</span>
-                <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Discover Old Delhi &amp; Acclimate</h4>
-                <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
-                    A gentle day of rest, exploring historical Old Delhi markets, tasting local spices, and acclimating to the rich local environment.
-                </p>
-                <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
-            </div>
-        </div>
-        <!-- Right column: Day 1 Content then Day 2 Image -->
-        <div class="flex flex-col gap-10 md:gap-16 h-full justify-around py-4">
-            <!-- Day 1 Content -->
-            <div class="reveal-on-scroll flex flex-col justify-center min-h-[220px]">
-                <span class="font-heritage-serif text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 01</span>
-                <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Arrival &amp; Welcome</h4>
-                <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
-                    Airport pickup and transfer to boutique lodging followed by an evening welcome dinner and sourcing orientation.
-                </p>
-                <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
-            </div>
-            <!-- Day 2 Image -->
-            <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
-                <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
-                    <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="new image kim\IMG_3268.JPG.jpeg" alt="Day 2 - Old Delhi market with vibrant floral arrangements"/>
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <!-- Day 1 (Left Image, Right Content) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                        <!-- Left Image -->
+                        <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
+                            <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="itinerary/day-01.jpeg" alt="Day 1 - Arrival and Welcome"/>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                            </div>
+                        </div>
+                        <!-- Right Content -->
+                        <div class="reveal-on-scroll flex flex-col justify-center">
+                            <span class="font-heritage-serif text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 01</span>
+                            <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Arrival &amp; Welcome</h4>
+                            <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                                Airport pickup and transfer to boutique lodging followed by an evening welcome dinner and sourcing orientation.
+                            </p>
+                            <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
+                        </div>
+                    </div>
+    
+                    <!-- Day 2 (Right Image, Left Content) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+                        <!-- Left Content -->
+                        <div class="reveal-on-scroll flex flex-col justify-center order-2 md:order-1">
+                            <span class="font-heritage-serif text-xs text-gold uppercase tracking-[0.25em] block mb-2">Day 02</span>
+                            <h4 class="font-display-lg text-2xl md:text-3xl text-on-surface mb-4 font-normal">Discover Old Delhi &amp; Acclimate</h4>
+                            <p class="font-body-md text-sm md:text-base text-on-surface-variant leading-relaxed">
+                                A gentle day of rest, exploring historical Old Delhi markets, tasting local spices, and acclimating to the rich local environment.
+                            </p>
+                            <div class="h-[1px] w-12 bg-primary/20 mt-6"></div>
+                        </div>
+                        <!-- Right Image -->
+                        <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden order-1 md:order-2">
+                            <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
+                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="symbols/itinerary-day-2.jpeg" alt="Day 2 - Old Delhi market with vibrant floral arrangements"/>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+                            </div>
+                        </div>
+                    </div>
     
                     <!-- Day 3 (Left Image, Right Content) -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
                         <!-- Left Image -->
                         <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden">
                             <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
-                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="itinerary/day-03.jpeg" alt="Day 3 - IHGF Trade Show"/>
+                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="symbols/itinerary-day-3.jpeg" alt="Day 3 - IHGF Trade Show"/>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                             </div>
                         </div>
@@ -1265,7 +1265,7 @@
                         <!-- Right Image -->
                         <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden order-1 md:order-2">
                             <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
-                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="itinerary/day-04.jpeg" alt="Day 4 - IHGF Sourcing"/>
+                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="symbols/day-4-itinerary.jpeg" alt="Day 4 - IHGF Sourcing"/>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                             </div>
                         </div>
@@ -1305,7 +1305,7 @@
                         <!-- Right Image -->
                         <div class="reveal-on-scroll heritage-image-frame rounded-t-[140px] md:rounded-t-[180px] rounded-b-2xl aspect-[4/3] group relative overflow-hidden order-1 md:order-2">
                             <div class="heritage-image-frame-inner rounded-t-[132px] md:rounded-t-[172px] rounded-b-xl w-full h-full">
-                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="itinerary/day-06.jpeg" alt="Day 6 - Jaipur artisan experience and crafts"/>
+                                <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" src="symbols/day-6-itinerary.jpeg" alt="Day 6 - Jaipur artisan experience and crafts"/>
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                             </div>
                         </div>
@@ -1366,7 +1366,7 @@
 </section>
 
 <!-- Section 03: Logistics -->
-<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="materials">
+<section class="flex-col pt-24 pb-32 md:py-20 overflow-y-auto custom-scrollbar" id="materials">
     <div class="max-w-5xl w-full">
         <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">03 / Logistics</p>
         <h2 class="font-display-lg text-display-lg mb-12">Logistics, Inclusions &amp; <span class="italic font-light">Pricing</span></h2>
@@ -1550,14 +1550,14 @@
 </section>
 
 <!-- Section 04: Our Network -->
-<section class="flex-col py-20 overflow-y-auto custom-scrollbar" id="artisans">
+<section class="flex-col pt-24 pb-32 md:py-20 overflow-y-auto custom-scrollbar" id="artisans">
     <div class="max-w-6xl w-full mx-auto">
         <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-6">04 / Our Network</p>
         
         <!-- Part 1: Why Travel With Elevation By Kim -->
         <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-center mb-24 pb-16 border-b border-outline-variant/20">
             <div class="md:col-span-7 space-y-6">
-                <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight">Why Travel With <br/><span class="italic font-light">Us?</span></h2>
+                <h2 class="font-display-lg text-display-lg md:text-5xl leading-tight">Why Travel With <br/><span class="italic font-light">Us</span> <span>? </span></h2>
                 <p class="font-body-lg text-on-surface-variant leading-relaxed">
                     I've been to India half a dozen times now — and every single trip, I fall a little more in love. With the culture, the colors, the warmth of the people, and the extraordinary creativity I find everywhere I go.
                 </p>
@@ -1576,7 +1576,7 @@
                 <!-- Image container -->
                 <div class="relative z-10 aspect-[3/4] heritage-image-frame rounded-t-[180px] rounded-b-2xl group">
                     <div class="heritage-image-frame-inner rounded-t-[172px] rounded-b-xl w-full h-full">
-                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" loading="lazy" style="object-position: top center;" src="kim images/kim-image-india-style.jpeg" alt="Kim beautifully dressed in a traditional Indian saree, embracing the culture of India"/>
+                        <img class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 heritage-image-filter" loading="lazy" style="object-position: top center;" src="symbols/why-travel-with-us.jpeg" alt="Kim beautifully dressed in a traditional Indian saree, embracing the culture of India"/>
                         <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
                     </div>
                 </div>
@@ -1621,7 +1621,7 @@
 </section>
 
 <!-- Section 05: Join Us -->
-<section class="flex-col py-10 overflow-y-auto custom-scrollbar" id="collection">
+<section class="flex-col pt-24 pb-32 md:py-10 overflow-y-auto custom-scrollbar" id="collection">
     <div class="max-w-5xl w-full mx-auto">
         <p class="font-heritage-serif text-label-numeric text-primary-container uppercase tracking-[0.2em] mb-4">05 / Join Us</p>
  
@@ -1896,8 +1896,8 @@
             const currentY = e.touches[0].clientY;
             const deltaY = touchStartY - currentY; // positive = scroll down (finger swipe up)
 
-            const atTop = activeTouchSection.scrollTop === 0;
-            const atBottom = Math.abs(activeTouchSection.scrollHeight - activeTouchSection.scrollTop - activeTouchSection.clientHeight) < 2;
+            const atTop = touchStartScrollTop === 0;
+            const atBottom = touchStartScrollTop >= activeTouchSection.scrollHeight - activeTouchSection.clientHeight - 5;
 
             if (deltaY > 0 && atBottom) {
                 // Elastic bounce pull up at bottom
@@ -1920,7 +1920,7 @@
             const deltaY = touchStartY - currentY;
 
             const atTop = touchStartScrollTop === 0;
-            const atBottom = Math.abs(activeTouchSection.scrollHeight - activeTouchSection.scrollTop - activeTouchSection.clientHeight) < 5;
+            const atBottom = touchStartScrollTop >= activeTouchSection.scrollHeight - activeTouchSection.clientHeight - 5;
             const SWIPE_THRESHOLD = 80;
 
             if (deltaY > SWIPE_THRESHOLD && atBottom && activeIndex < sections.length - 1) {
