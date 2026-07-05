@@ -1,0 +1,757 @@
+/* ============================================================
+   ELEVATION BY KIM — MAIN STYLESHEET
+   Custom CSS companion to Tailwind utility classes.
+   Organized into logical sections for maintainability.
+
+   TABLE OF CONTENTS:
+   01. Material Icons
+   02. Cinematic Section System
+   03. Desktop Sidebar Navigation
+   04. Brand Name Typography
+   05. Body Background (Radial Glow + Mandala Texture)
+   06. Heritage Font Families
+   07. Jharokha Decorative Clip
+   08. Editorial Dropcap
+   09. Custom Scrollbar
+   10. Lotus Divider Component
+   11. Heritage Image Frame
+   12. Heritage Backdrop Pattern
+   13. Experience Storytelling (Section 02)
+   14. Itinerary Scroll Reveal
+   15. FAQ Accordion
+   16. Mobile Apply Button
+   17. Desktop Sidebar CTA Button
+   18. Reduced Motion Override
+   ============================================================ */
+
+
+/* ============================================================
+   01. MATERIAL ICONS
+   Adjusts Material Symbols variable font defaults to a
+   lighter, thinner weight that fits the editorial aesthetic.
+   ============================================================ */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+}
+
+
+/* ============================================================
+   02. CINEMATIC SECTION SYSTEM
+   All <section> elements are stacked absolutely within
+   .section-container and swapped via JS with opacity and
+   translateY transitions for a page-turn effect.
+   ============================================================ */
+
+/* Viewport-height scroll stage */
+.section-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh; /* dynamic viewport height for mobile browsers */
+    overflow: hidden;
+}
+
+/* Default state: hidden and shifted down */
+section {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Active section: fully visible */
+section.active {
+    display: flex;
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+/* Exit state: fades up and out */
+section.exit {
+    display: flex;
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+/* ============================================================
+   03. DESKTOP SIDEBAR NAVIGATION
+   ============================================================ */
+
+/* Glassmorphism frosted sidebar panel */
+.glass-sidebar {
+    background: rgba(254, 240, 236, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(197, 155, 39, 0.20);
+    box-shadow: 0 8px 32px 0 rgba(130, 59, 24, 0.06);
+    border-radius: 24px;
+    /* Subtle crosshatch texture overlay */
+    background-image:
+        linear-gradient(to right,  rgba(130, 59, 24, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(130, 59, 24, 0.02) 1px, transparent 1px);
+    background-size: 10px 10px;
+}
+
+/* Animated accent bar that slides to the active nav link */
+.nav-slider {
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: #823b18; /* primary terracotta */
+    transition: top 500ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+
+/* Diamond accent tip on the nav slider */
+.nav-slider::after {
+    content: '';
+    position: absolute;
+    right: -3px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 6px;
+    height: 6px;
+    background-color: #823b18;
+}
+
+/* Focus ring for keyboard-accessible nav links */
+.nav-link:focus-visible {
+    outline: 2px solid #a0522d;
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
+
+/* ============================================================
+   04. BRAND NAME TYPOGRAPHY
+   Premium editorial italic serif treatment for the
+   "Elevation By Kim" wordmark.
+   ============================================================ */
+.brand-name {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+}
+
+/* Smaller scale override for the mobile top bar */
+@media (max-width: 767px) {
+    .brand-name-mobile {
+        font-size: 22px;
+        font-style: italic;
+        letter-spacing: -0.01em;
+    }
+}
+
+
+/* ============================================================
+   05. BODY BACKGROUND
+   Layered radial glow system over a warm cream base.
+   Four layers:
+     • Layer 1 — large center-weighted radial glow (primary)
+     • Layer 2 — subtle secondary warmth bloom (upper-left)
+     • Layer 3 — delicate lower-right warmth for depth
+     • Layer 4 — seamlessly tiling mandala SVG texture
+
+   Palette:
+     • Base:         near-white warm cream  (#FFF9F6)
+     • Center glow:  soft warm peach        (#F5C4A0) at 0%
+     • Mid diffuse:  warm blush             (#FDDCCA) at ~35%
+     • Edge fade:    airy near-white        (#FFF9F6) at edges
+   ============================================================ */
+body {
+    background-color: #FFF9F6;
+    background-image:
+        /* Layer 1 – large center-weighted radial glow */
+        radial-gradient(
+            ellipse 80% 70% at 55% 45%,
+            rgba(242, 185, 150, 0.62)  0%,
+            rgba(248, 210, 183, 0.42) 28%,
+            rgba(252, 228, 210, 0.22) 55%,
+            rgba(255, 249, 246, 0.00) 85%
+        ),
+        /* Layer 2 – subtle secondary warmth bloom (upper-left) */
+        radial-gradient(
+            ellipse 55% 45% at 20% 20%,
+            rgba(248, 215, 190, 0.28)  0%,
+            rgba(255, 249, 246, 0.00) 70%
+        ),
+        /* Layer 3 – delicate lower-right warmth for depth */
+        radial-gradient(
+            ellipse 50% 40% at 88% 82%,
+            rgba(245, 200, 168, 0.18)  0%,
+            rgba(255, 249, 246, 0.00) 65%
+        ),
+        /* Layer 4 – mandala texture pattern (seamless repeat) */
+        url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22240%22%20height%3D%22240%22%20viewBox%3D%220%200%20240%20240%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3C%21--%20Define%20a%20single%20outer%20leaf/petal%20--%3E%0A%20%20%20%20%3Cpath%20id%3D%22leaf%22%20d%3D%22M%20-8%2C-60%20Q%200%2C-82%208%2C-60%22%20fill%3D%22none%22%20/%3E%0A%20%20%20%20%3C%21--%20Define%20a%20single%20middle%20leaf/petal%20--%3E%0A%20%20%20%20%3Cpath%20id%3D%22mid-leaf%22%20d%3D%22M%20-6%2C-42%20Q%200%2C-56%206%2C-42%22%20fill%3D%22none%22%20/%3E%0A%20%20%20%20%0A%20%20%20%20%3C%21--%20Complete%20Mandala%20centered%20at%200%2C0%20--%3E%0A%20%20%20%20%3Cg%20id%3D%22mandala%22%3E%0A%20%20%20%20%20%20%3C%21--%20Concentric%20circles%20--%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%2210%22%20fill%3D%22none%22%20/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%2216%22%20fill%3D%22none%22%20stroke-dasharray%3D%222%202%22%20/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%2228%22%20fill%3D%22none%22%20/%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Inner%208-Petal%20Lotus%20Core%20--%3E%0A%20%20%20%20%20%20%3Cg%20fill%3D%22none%22%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20transform%3D%22rotate%2845%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20transform%3D%22rotate%2890%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20transform%3D%22rotate%28135%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20transform%3D%22rotate%28180%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20transform%3D%22rotate%28225%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20transform%3D%22rotate%28270%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M0%2C-10%20C3%2C-15%205%2C-20%200%2C-26%20C-5%2C-20%20-3%2C-15%200%2C-10%22%20transform%3D%22rotate%28315%29%22%20/%3E%0A%20%20%20%20%20%20%3C/g%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Double%20Intersecting%20Squares%20%288-pointed%20geometric%20star%29%20--%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22-20%22%20y%3D%22-20%22%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22none%22%20/%3E%0A%20%20%20%20%20%20%3Crect%20x%3D%22-20%22%20y%3D%22-20%22%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%224%22%20fill%3D%22none%22%20transform%3D%22rotate%2845%29%22%20/%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Dotted%20ring%20at%20r%3D34%20--%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%2234%22%20fill%3D%22none%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%220.1%206%22%20stroke-linecap%3D%22round%22%20/%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Middle%20Petals%20--%3E%0A%20%20%20%20%20%20%3Cg%20fill%3D%22none%22%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20transform%3D%22rotate%2845%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20transform%3D%22rotate%2890%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20transform%3D%22rotate%28135%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20transform%3D%22rotate%28180%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20transform%3D%22rotate%28225%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20transform%3D%22rotate%28270%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23mid-leaf%22%20transform%3D%22rotate%28315%29%22%20/%3E%0A%20%20%20%20%20%20%3C/g%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Concentric%20circle%20for%20structure%20--%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%2248%22%20fill%3D%22none%22%20stroke-dasharray%3D%224%203%22%20/%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%2260%22%20fill%3D%22none%22%20/%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Outer%20Petals%20--%3E%0A%20%20%20%20%20%20%3Cg%20fill%3D%22none%22%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20transform%3D%22rotate%2845%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20transform%3D%22rotate%2890%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20transform%3D%22rotate%28135%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20transform%3D%22rotate%28180%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20transform%3D%22rotate%28225%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20transform%3D%22rotate%28270%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Cuse%20href%3D%22%23leaf%22%20transform%3D%22rotate%28315%29%22%20/%3E%0A%20%20%20%20%20%20%3C/g%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Dotted%20ring%20at%20outer%20boundary%20r%3D68%20--%3E%0A%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%220%22%20r%3D%2268%22%20fill%3D%22none%22%20stroke-width%3D%221.5%22%20stroke-dasharray%3D%220.1%208%22%20stroke-linecap%3D%22round%22%20/%3E%0A%20%20%20%20%20%20%0A%20%20%20%20%20%20%3C%21--%20Small%20floral%20accents%20between%20outer%20leaves%20at%20r%3D76%20--%3E%0A%20%20%20%20%20%20%3Cg%20fill%3D%22none%22%20stroke-width%3D%220.75%22%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20transform%3D%22rotate%2845%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20transform%3D%22rotate%2890%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20transform%3D%22rotate%28135%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20transform%3D%22rotate%28180%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20transform%3D%22rotate%28225%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20transform%3D%22rotate%28270%29%22%20/%3E%0A%20%20%20%20%20%20%20%20%3Ccircle%20cx%3D%220%22%20cy%3D%22-76%22%20r%3D%221.5%22%20fill%3D%22currentColor%22%20transform%3D%22rotate%28315%29%22%20/%3E%0A%20%20%20%20%20%20%3C/g%3E%0A%20%20%20%3C/g%3E%0A%20%20%3C/defs%3E%0A%0A%20%20%3C%21--%20Seamless%20Tiling%20Placement%20--%3E%0A%20%20%3C%21--%201.%20Center%20Mandala%20--%3E%0A%20%20%3Cuse%20href%3D%22%23mandala%22%20x%3D%22120%22%20y%3D%22120%22%20stroke%3D%22%23823b18%22%20stroke-width%3D%220.75%22%20opacity%3D%220.035%22%20/%3E%0A%20%20%0A%20%20%3C%21--%202.%20Four%20Corners%20Mandalas%20%28creating%20a%20seamless%20repeat%20pattern%29%20--%3E%0A%20%20%3Cuse%20href%3D%22%23mandala%22%20x%3D%220%22%20y%3D%220%22%20stroke%3D%22%23823b18%22%20stroke-width%3D%220.75%22%20opacity%3D%220.035%22%20/%3E%0A%20%20%3Cuse%20href%3D%22%23mandala%22%20x%3D%22240%22%20y%3D%220%22%20stroke%3D%22%23823b18%22%20stroke-width%3D%220.75%22%20opacity%3D%220.035%22%20/%3E%0A%20%20%3Cuse%20href%3D%22%23mandala%22%20x%3D%220%22%20y%3D%22240%22%20stroke%3D%22%23823b18%22%20stroke-width%3D%220.75%22%20opacity%3D%220.035%22%20/%3E%0A%20%20%3Cuse%20href%3D%22%23mandala%22%20x%3D%22240%22%20y%3D%22240%22%20stroke%3D%22%23823b18%22%20stroke-width%3D%220.75%22%20opacity%3D%220.035%22%20/%3E%0A%3C/svg%3E");
+    background-repeat:     no-repeat, no-repeat, no-repeat, repeat;
+    background-size:       100% 100%, 100% 100%, 100% 100%, auto;
+    background-attachment: fixed, fixed, fixed, scroll;
+    overflow: hidden; /* scroll is controlled by the JS section paging system */
+}
+
+
+/* ============================================================
+   06. HERITAGE FONT FAMILIES
+   Custom font classes for the two decorative Indian-inspired
+   typefaces used for numerals, labels, and accents.
+   ============================================================ */
+
+/* Yatra One — display numerals and decorative headers */
+.font-heritage-title {
+    font-family: 'Yatra One', cursive;
+}
+
+/* Kurale — editorial labels, navigation, and fine detail text */
+.font-heritage-serif {
+    font-family: 'Kurale', serif;
+}
+
+
+/* ============================================================
+   07. JHAROKHA DECORATIVE CLIP
+   Inspired by traditional Indian jharokha window architecture.
+   Creates stepped corner cut-outs on cards and panels.
+   ============================================================ */
+.jharokha-clip {
+    clip-path: polygon(
+        0 16px, 16px 16px, 16px 0,
+        calc(100% - 16px) 0, calc(100% - 16px) 16px, 100% 16px,
+        100% calc(100% - 16px), calc(100% - 16px) calc(100% - 16px), calc(100% - 16px) 100%,
+        16px 100%, 16px calc(100% - 16px), 0 calc(100% - 16px)
+    );
+}
+
+
+/* ============================================================
+   08. EDITORIAL DROPCAP
+   Applied via .editorial-dropcap on the first paragraph of
+   a section to create an oversized Playfair Display first
+   letter for a magazine-quality editorial effect.
+   ============================================================ */
+.editorial-dropcap::first-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    float: left;
+    line-height: 0.85;
+    margin-right: 0.6rem;
+    margin-top: 0.15rem;
+    color: #823b18; /* primary terracotta */
+    font-weight: 500;
+}
+
+
+/* ============================================================
+   09. CUSTOM SCROLLBAR
+   Thin, minimal scrollbar for scrollable section containers
+   and modal overlays.
+   ============================================================ */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #dac1b8; /* outline-variant color */
+    border-radius: 10px;
+}
+
+
+/* ============================================================
+   10. LOTUS DIVIDER COMPONENT
+   The traditional Indian Kamal (Lotus) decorative divider
+   rendered as a Web Component via <lotus-divider>.
+   ============================================================ */
+.divider-lotus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 4rem 0;
+    opacity: 0.75;
+}
+
+.divider-lotus-line {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(197, 155, 39, 0.6), transparent);
+    flex-grow: 1;
+}
+
+.divider-lotus-center {
+    margin: 0 1.5rem;
+    color: #823b18;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+
+/* ============================================================
+   11. HERITAGE IMAGE FRAME
+   Gold-bordered arched frame applied to all primary images.
+   The outer .heritage-image-frame provides the mount and
+   border; .heritage-image-frame-inner clips the image.
+   .heritage-image-filter adds hover transition behavior.
+   ============================================================ */
+
+/* Outer frame — blush mat + 2px solid gold border */
+.heritage-image-frame {
+    position: relative;
+    padding: 6px;
+    background-color: #FEF0EC; /* soft blush mat */
+    border: 2px solid #C59B27; /* solid 2px gold border */
+    box-shadow: 0 20px 45px -15px rgba(130, 59, 24, 0.12);
+    transition: all 0.5s ease;
+}
+
+/* Inner clip — hides overflow for hover scale effects */
+.heritage-image-frame-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Smooth scale transition shared by all heritage images */
+.heritage-image-filter {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* GPU composite hint for smoother transforms */
+img.heritage-image-filter {
+    transform: translateZ(0);
+    will-change: transform;
+}
+
+/* Hover scale-up on parent group hover */
+.group:hover img.heritage-image-filter {
+    transform: scale(1.05) translateZ(0);
+}
+
+/* Subtle parallax effect for hero image (mouse-tracking via JS) */
+.parallax-img {
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+
+/* ============================================================
+   12. HERITAGE BACKDROP PATTERN
+   Decorative geometric pattern applied as an offset backdrop
+   shadow behind portrait images (see Section 04 and 05).
+   ============================================================ */
+.heritage-backdrop-pattern {
+    background-color: #FEF0EC; /* soft blush base */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20 Z' fill='none' stroke='%23823b18' stroke-width='0.5' opacity='0.15'/%3E%3Cpath d='M20 5 L35 20 L20 35 L5 20 Z' fill='none' stroke='%23C59B27' stroke-width='0.5' opacity='0.15'/%3E%3Ccircle cx='20' cy='20' r='2' fill='%23823b18' opacity='0.2'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    border: 1px solid rgba(197, 155, 39, 0.25);
+    box-shadow: 0 10px 25px -10px rgba(130, 59, 24, 0.1);
+}
+
+
+/* ============================================================
+   13. EXPERIENCE STORYTELLING (Section 02)
+   A sticky two-column layout: image column (left/top) and
+   narrative column (right/bottom) that cross-fade as the user
+   scrolls through the 400vh scroll track above the itinerary.
+   ============================================================ */
+
+/* Scroll track — sets the total scrollable height */
+.experience-scroll-track {
+    position: relative;
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sticky container — remains in view while track scrolls past */
+.experience-sticky-container {
+    position: sticky;
+    top: 60px; /* clears the mobile header bar */
+    left: 0;
+    width: 100%;
+    height: calc(100dvh - 140px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    overflow: hidden;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+/* Image column — arched frame holding the active experience photo */
+.experience-visual-col {
+    width: 100%;
+    height: 40%;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    border-top-left-radius: 120px;
+    border-top-right-radius: 120px;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    box-shadow: 0 15px 30px -10px rgba(130, 59, 24, 0.15);
+    background-color: #FEF0EC;
+    padding: 6px;
+    border: 1px solid rgba(197, 155, 39, 0.20);
+}
+
+/* Narrative column — holds experience step text and progress indicator */
+.experience-narrative-col {
+    width: 100%;
+    height: 50%;
+    flex-grow: 1;
+    display: flex;
+    position: relative;
+    padding-right: 1rem;
+}
+
+/* Desktop layout — side by side */
+@media (min-width: 768px) {
+    .experience-sticky-container {
+        top: 0;
+        height: clamp(580px, 75vh, 90vh);
+        flex-direction: row;
+        gap: 4rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    .experience-visual-col {
+        width: 60%;
+        height: clamp(440px, 72vh, 78vh);
+        border-top-left-radius: 160px;
+        border-top-right-radius: 160px;
+        padding: 8px;
+    }
+    .experience-narrative-col {
+        width: 40%;
+        height: auto;
+        min-height: 60vh;
+    }
+}
+
+/* Mobile scroll hint — animated "Scroll to explore" label */
+.experience-scroll-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none;
+    animation: hintPulse 2.5s ease-in-out infinite;
+    z-index: 20;
+}
+.experience-scroll-hint span {
+    font-family: 'Kurale', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #823b18;
+    opacity: 0.7;
+}
+@keyframes hintPulse {
+    0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0);   }
+    50%       { opacity: 1;   transform: translateX(-50%) translateY(5px); }
+}
+@media (min-width: 768px) {
+    /* Scroll hint is desktop-irrelevant — hidden on wider screens */
+    .experience-scroll-hint { display: none; }
+}
+
+/* Experience step narrative — one per step, cross-faded by JS */
+.experience-step {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+.experience-step.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Experience image — one per step, cross-faded by JS */
+.experience-image {
+    position: absolute;
+    inset: 8px;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    object-fit: cover;
+    border-top-left-radius: 152px;
+    border-top-right-radius: 152px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+}
+.experience-image.active {
+    opacity: 1;
+    transform: scale(1.0);
+    pointer-events: auto;
+}
+
+
+/* ============================================================
+   14. ITINERARY SCROLL REVEAL
+   Applied to each Day card grid pair in the itinerary.
+   JS adds .revealed when the element enters the viewport.
+   ============================================================ */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(35px) scale(0.98);
+    transition: opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+.reveal-on-scroll.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+
+/* ============================================================
+   15. FAQ ACCORDION
+   Uses CSS grid-template-rows trick for smooth height
+   animation without a fixed max-height value.
+   ============================================================ */
+
+/* Wrapper collapses to 0 rows when inactive */
+.faq-content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Expand to 1fr when .faq-item is active */
+.faq-item.active .faq-content-wrapper {
+    grid-template-rows: 1fr;
+}
+
+/* Inner content — hidden overflow required for the grid trick */
+.faq-content {
+    min-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 200ms ease-in-out;
+}
+.faq-item.active .faq-content {
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+    transition-delay: 100ms;
+}
+
+/* Rotate the chevron icon 180° when open */
+.faq-item.active .material-symbols-outlined {
+    transform: rotate(180deg);
+}
+
+
+/* ============================================================
+   16. MOBILE APPLY BUTTON
+   The top-bar CTA button on mobile. Features a shimmer sweep
+   animation and gold top-edge accent line.
+   ============================================================ */
+@keyframes applyShimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+}
+
+.mobile-apply-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 16px;
+    background-color: #823b18;
+    color: #FAF8F5;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    line-height: 1;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow:
+        inset 0 2px 0 0 #C59B27,           /* gold top-edge accent line */
+        0 2px 8px rgba(130, 59, 24, 0.35), /* warm drop shadow */
+        0 1px 2px rgba(0, 0, 0, 0.20);
+    transition:
+        background-color 0.25s ease,
+        box-shadow       0.25s ease,
+        transform        0.15s ease;
+}
+
+/* Shimmer sweep overlay pseudo-element */
+.mobile-apply-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        105deg,
+        transparent 35%,
+        rgba(255, 255, 255, 0.18) 50%,
+        transparent 65%
+    );
+    background-size: 200% 100%;
+    background-position: -200% center;
+    animation: applyShimmer 2.8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.mobile-apply-btn:hover {
+    background-color: #6a2f12;
+    box-shadow:
+        inset 0 2px 0 0 #d4a82e,
+        0 4px 14px rgba(130, 59, 24, 0.45),
+        0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.mobile-apply-btn:active {
+    transform: translateY(1px) scale(0.97);
+    box-shadow:
+        inset 0 2px 0 0 #C59B27,
+        0 1px 4px rgba(130, 59, 24, 0.3);
+}
+
+/* Arrow glyph inside the button */
+.mobile-apply-btn .btn-arrow {
+    font-size: 9px;
+    opacity: 0.75;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    font-style: normal;
+}
+.mobile-apply-btn:hover .btn-arrow {
+    transform: translateX(3px);
+    opacity: 1;
+}
+
+
+/* ============================================================
+   17. DESKTOP SIDEBAR CTA BUTTON
+   The "Apply Now" button at the bottom of the sidebar rail.
+   Pulses gently on a 10-second cycle to draw attention
+   without being distracting.
+   ============================================================ */
+
+/* Base button styles */
+.sidebar-cta {
+    background-color: #823b18; /* primary terracotta */
+    color: #FAF8F5;             /* warm off-white */
+    border: 1px solid rgba(197, 155, 39, 0.35); /* gold accent border */
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow:
+        0 4px 12px rgba(130, 59, 24, 0.15),
+        0 2px 6px rgba(197, 155, 39, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition:
+        transform          400ms cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow         400ms cubic-bezier(0.16, 1, 0.3, 1),
+        background-color   400ms cubic-bezier(0.16, 1, 0.3, 1),
+        border-color       400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidebar-cta:hover {
+    transform: translateY(-3px) scale(1.03);
+    background-color: #944925; /* slightly brighter terracotta */
+    border-color: rgba(197, 155, 39, 0.65);
+    box-shadow:
+        0 8px 20px rgba(130, 59, 24, 0.25),
+        0 4px 12px rgba(197, 155, 39, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    animation: none !important; /* pause pulse on hover */
+}
+
+.sidebar-cta:active {
+    transform: translateY(-1px) scale(0.98);
+    background-color: #76320f; /* darker terracotta */
+    border-color: rgba(197, 155, 39, 0.45);
+    box-shadow:
+        0 2px 6px rgba(130, 59, 24, 0.18),
+        0 1px 3px rgba(197, 155, 39, 0.1),
+        inset 0 1px 0 rgba(0, 0, 0, 0.15);
+    transition:
+        transform  150ms cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: none !important; /* pause pulse on press */
+}
+
+/* Gentle luxury attention animation — 10s cycle: 1.2s pulse, 8.8s rest */
+@keyframes ctaPulse {
+    0%, 100% {
+        transform: scale(1) translateY(0);
+        box-shadow:
+            0 4px 12px rgba(130, 59, 24, 0.15),
+            0 2px 6px rgba(197, 155, 39, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    6% {
+        transform: scale(1.025) translateY(-1px);
+        box-shadow:
+            0 6px 16px rgba(130, 59, 24, 0.22),
+            0 3px 10px rgba(197, 155, 39, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+    12% {
+        transform: scale(1) translateY(0);
+        box-shadow:
+            0 4px 12px rgba(130, 59, 24, 0.15),
+            0 2px 6px rgba(197, 155, 39, 0.08),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+}
+
+.sidebar-cta-pulse {
+    animation: ctaPulse 10s ease-in-out infinite;
+}
+
+
+/* ============================================================
+   18. REDUCED MOTION OVERRIDE
+   Respects the user's OS-level "reduce motion" preference.
+   Disables transitions and transforms for accessibility.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    section,
+    .nav-slider,
+    .parallax-img {
+        transition: none !important;
+        transform: none !important;
+    }
+    section.active {
+        opacity: 1 !important;
+    }
+}

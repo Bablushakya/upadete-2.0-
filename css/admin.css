@@ -1,0 +1,21 @@
+/* Custom CSS for Elevation By Kim Admin Dashboard */
+
+body {
+    background: linear-gradient(135deg, #FFF9F6 0%, #FEF0EC 100%);
+    font-family: 'DM Sans', sans-serif;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(130, 59, 24, 0.15);
+    border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(130, 59, 24, 0.3);
+}
